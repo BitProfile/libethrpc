@@ -19,10 +19,7 @@ class Provider
         bool isEmpty() const;
         bool isConnected() const;
         
-       template<class Arguments>
        bool request(const char *, const Arguments &, Json::Value &);
-
-       template<class Arguments>
        Json::Value request(const char *, const Arguments &);
 
        bool request(const char *, Json::Value &);
@@ -65,5 +62,3 @@ class Provider
 
 
 }
-
-#include "Provider.ipp"

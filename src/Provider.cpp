@@ -40,6 +40,31 @@ Json::Value Provider::request(Json::Value &request)
     return _connection->request(request);
 }
 
+bool Provider::Connection::request(const char *method, const Arguments &args, Json::Value &result)
+{
+    Json::Value message;
+    RequestEncoder encoder;
+    encoder.encode(method, args, message);
+    return request(message, result);
+}
+
+
+bool Provider::request(const char *method, const Arguments &args, Json::Value &result)
+{
+    return _connection->request(method, args, result);
+}
+
+
+Json::Value Provider::request(const char *method, const Arguments &args)
+{
+    Json::Value result;
+    if(!request(method, args, result))
+    {
+        throw std::runtime_error("rpc request failed");
+    }
+    return result;
+}
+
 
 bool Provider::request(Json::Value &request, Json::Value &response)
 {
