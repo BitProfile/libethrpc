@@ -1,5 +1,6 @@
 #include "Block.hpp"
 
+
 namespace Eth{
 
 Block::Block(const Json::Value &data) : _data(data)

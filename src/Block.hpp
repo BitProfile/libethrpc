@@ -14,6 +14,7 @@ class Block
 {
     public:
         Block(const Json::Value &data);
+
         unsigned getIndex() const;
         std::string getHash() const;
         uint64_t getNonce() const;
@@ -28,7 +29,7 @@ class Block
         Collection<std::string> getUncles() const;
 
     private:
-        const Json::Value &_data;
+        Json::Value _data;
 };
 
 
