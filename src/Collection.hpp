@@ -14,13 +14,17 @@ class Collection
         typedef Eth::Iterator<T> Iterator;
 
     public:
+
         Collection(const Json::Value &);
+
         size_t size() const;
+
         Iterator begin() const;
         Iterator end() const;
 
+
     private:
-        const Json::Value &_data;
+        Json::Value _data;
 };
 
 
