@@ -14,13 +14,16 @@ bool JsonReader::read(Socket &socket, Json::Value &message)
     size_t size = boost::asio::read_until(socket, buffer, '}');
     if(!size)
     {
+        LOG_DEBUG("failed to read response");
         return false;
     }
 
     Json::Reader reader;
     const char *data = boost::asio::buffer_cast<const char*>(buffer.data());
+    LOG_DEBUG("got : "<<data);
     if(!reader.parse(data, data+buffer.size(), message, false))
     {
+        LOG_DEBUG("failed to parse json");
         return false;
     }
 
