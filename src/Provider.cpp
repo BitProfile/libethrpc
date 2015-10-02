@@ -40,6 +40,7 @@ Json::Value Provider::request(Json::Value &request)
     return _connection->request(request);
 }
 
+
 bool Provider::Connection::request(const char *method, const Arguments &args, Json::Value &result)
 {
     Json::Value message;

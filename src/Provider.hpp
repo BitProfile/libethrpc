@@ -34,8 +34,6 @@ class Provider
               virtual bool request(Json::Value &, Json::Value &) = 0;
               virtual bool isConnected() const = 0;
               virtual bool connect(const char *) = 0;
-
-              template<class Arguments>
               bool request(const char *method, const Arguments &, Json::Value &result);
         };
 
