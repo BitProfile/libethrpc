@@ -1,14 +1,16 @@
 #include "Block.hpp"
 
+#include <stdlib.h>
 
 namespace Eth{
 
 Block::Block(const Json::Value &data) : _data(data)
 {}
 
+
 unsigned Block::getIndex() const
 {
-    return _data["number"].asUInt64();
+    return strtoul(_data["number"].asCString(), NULL, 16);
 }
 
 std::string Block::getHash() const
@@ -18,32 +20,32 @@ std::string Block::getHash() const
 
 uint64_t Block::getNonce() const
 {
-    return _data["nonce"].asUInt64();
+    return strtoull(_data["nonce"].asCString(), NULL, 16);
 }
 
 uint64_t Block::getDifficulty() const
 {
-    return _data["difficulty"].asUInt64();
+    return strtoull(_data["difficulty"].asCString(),NULL, 16);
 }
 
 size_t Block::getSize() const
 {
-    return _data["size"].asUInt64();
+    return strtoul(_data["size"].asCString(),NULL, 16);
 }
 
 time_t Block::getTimestamp() const
 {
-    return _data["timestamp"].asUInt64();
+    return strtoull(_data["timestamp"].asCString(), NULL, 16);
 }
 
 uint64_t Block::getGasLimit() const
 {
-    return _data["gasLimit"].asUInt64();
+    return strtoull(_data["gasLimit"].asCString(), NULL, 16);
 }
 
 uint64_t Block::getGasUsed() const
 {
-    return _data["gasUsed"].asUInt64();
+    return strtoull(_data["gasUsed"].asCString(), NULL, 16);
 }
 
 Collection<std::string> Block::getTransactions() const
