@@ -25,6 +25,8 @@ class Provider
        bool request(const char *, Json::Value &);
        Json::Value request(const char *);
 
+       bool request(const char *, const Json::Value &, Json::Value &);
+
     private:
         class Connection
         {

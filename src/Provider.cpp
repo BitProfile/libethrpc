@@ -79,6 +79,13 @@ bool Provider::request(const char *method, Json::Value &response)
     return _connection->request(request, response);
 }
 
+bool Provider::request(const char *method, const Json::Value &params, Json::Value &result)
+{
+    RequestEncoder encoder;
+    Json::Value request = encoder.encode(method, params);
+    return _connection->request(request, result);
+}
+
 Json::Value Provider::request(const char *method)
 {
     Json::Value result;
