@@ -1,5 +1,6 @@
 #include "TransactionEvent.hpp"
 
+#include <stdlib.h>
 
 namespace Eth{
 
@@ -28,12 +29,12 @@ std::string TransactionEvent::getBlockHash() const
 
 uint64_t TransactionEvent::getTransactionIndex() const
 {
-    return _data["transactionIndex"].asUInt64();
+    return strtoull(_data["transactionIndex"].asCString(), NULL, 16);
 }
 
 uint64_t TransactionEvent::getBlockIndex() const
 {
-    return _data["blockNumber"].asUInt64();
+    return strtoull(_data["blockNumber"].asCString(), NULL, 16);
 }
 
 

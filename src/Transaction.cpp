@@ -1,6 +1,8 @@
 
 #include "Transaction.hpp"
 
+#include <stdlib.h>
+
 namespace Eth{
 
 Transaction::Transaction(const Json::Value &data) : _data(data)
@@ -13,7 +15,7 @@ std::string Transaction::getHash() const
 
 uint64_t Transaction::getAmount() const
 {
-    return _data["value"].asUInt64();
+    return strtoull(_data["value"].asCString(), NULL, 16);
 }
 
 std::string Transaction::getSender() const
@@ -28,27 +30,27 @@ std::string Transaction::getReceiver() const
 
 size_t Transaction::getNonce() const
 {
-    return _data["nonce"].asUInt64();
+    return strtoul(_data["nonce"].asCString(), NULL, 16);
 }
 
 uint64_t Transaction::getGas() const
 {
-    return _data["gas"].asUInt64();
+    return strtoull(_data["gas"].asCString(), NULL, 16);
 }
 
 uint64_t Transaction::getGasPrice() const
 {
-    return _data["gasPrice"].asUInt64();
+    return strtoull(_data["gasPrice"].asCString(), NULL, 16);
 }
 
 size_t Transaction::getBlockNumber() const
 {
-    return _data["blockNumber"].asUInt64();
+    return strtoul(_data["blockNumber"].asCString(), NULL, 16);
 }
 
 size_t Transaction::getTransactionIndex() const
 {
-    return _data["transactionIndex"].asUInt64();
+    return strtoul(_data["transactionIndex"].asCString(), NULL, 16);
 }
 
 std::string Transaction::getBlockHash() const
