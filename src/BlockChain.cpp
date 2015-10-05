@@ -95,24 +95,12 @@ size_t BlockChain::getTransactionsCount(const char *address)
 unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t toBlock)
 {
     Json::Value params, result;
+    params["fromBlock"] = fromBlock ? ((Json::Value::UInt)fromBlock) : Json::Value("latest");
+    params["toBlock"] = toBlock ? ((Json::Value::UInt)toBlock) : Json::Value("latest");
+    params["limit"] = Json::Value(10);
+    params["offset"] = Json::Value(0);
+    params["topics"] = Json::arrayValue;
     params["address"] = address;
-    if(fromBlock)
-    {
-        params["fromBlock"] = (Json::Value::UInt)fromBlock;
-    }
-    else
-    {
-        params["fromBlock"] = "latest";
-    }
-
-    if(toBlock)
-    {
-        params["toBlock"] = (Json::Value::UInt)toBlock;
-    }
-    else
-    {
-        params["toBlock"]
-    }
 
     if(!_provider.request("eth_newFilter", params, result))
     {
