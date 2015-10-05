@@ -37,7 +37,7 @@ class BlockChain
         unsigned setNewFilter(const char *address, size_t fromBlock=0, size_t toBlock=0);
         void removeFilter(unsigned id);
 
-        Collection<TransactionEvent> getFilterChanges(unsigned id);
+        Collection<TransactionEvent> getEvents(unsigned id);
 
 
     private:
