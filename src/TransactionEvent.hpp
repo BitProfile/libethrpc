@@ -2,6 +2,7 @@
 
 #include <json/value.h>
 #include <stdint.h>
+#include <cstdlib>
 
 namespace Eth{
 

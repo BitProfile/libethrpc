@@ -1,7 +1,5 @@
 #include "TransactionEvent.hpp"
 
-#include <stdlib.h>
-
 namespace Eth{
 
 TransactionEvent::TransactionEvent(const Json::Value &data) : _data(data)
