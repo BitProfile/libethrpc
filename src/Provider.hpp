@@ -32,11 +32,9 @@ class Provider
         {
             public:
             
-              virtual Json::Value request(Json::Value &) = 0;
               virtual bool request(Json::Value &, Json::Value &) = 0;
               virtual bool isConnected() const = 0;
               virtual bool connect(const char *) = 0;
-              bool request(const char *method, const Arguments &, Json::Value &result);
         };
 
         template<class Transport>
@@ -45,7 +43,6 @@ class Provider
             public:
                 ConnectionAdapter();
                 ConnectionAdapter(const char *uri);
-                Json::Value request(Json::Value &);
                 bool request(Json::Value &, Json::Value &);
                 bool isConnected() const;
                 bool connect(const char *);

@@ -37,11 +37,16 @@ bool Provider::connect(const char *uri)
 
 Json::Value Provider::request(Json::Value &request)
 {
-    return _connection->request(request);
+    Json::Value result;
+    if(!_connection->request(request, result))
+    {
+        throw std::runtime_error("request failed");
+    }
+    return result;
 }
 
 
-bool Provider::Connection::request(const char *method, const Arguments &args, Json::Value &result)
+bool Provider::request(const char *method, const Arguments &args, Json::Value &result)
 {
     Json::Value message;
     RequestEncoder encoder;
@@ -49,11 +54,6 @@ bool Provider::Connection::request(const char *method, const Arguments &args, Js
     return request(message, result);
 }
 
-
-bool Provider::request(const char *method, const Arguments &args, Json::Value &result)
-{
-    return _connection->request(method, args, result);
-}
 
 
 Json::Value Provider::request(const char *method, const Arguments &args)
@@ -115,11 +115,6 @@ template<class Transport>
 Provider::ConnectionAdapter<Transport>::ConnectionAdapter()
 {}
 
-template<class Transport>
-Json::Value Provider::ConnectionAdapter<Transport>::request(Json::Value &msg)
-{
-    return _transport.request(msg);
-}
 
 template<class Transport>
 bool Provider::ConnectionAdapter<Transport>::request(Json::Value &request, Json::Value &response)
