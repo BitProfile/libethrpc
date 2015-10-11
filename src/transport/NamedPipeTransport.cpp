@@ -5,25 +5,15 @@
 
 namespace Eth{
 
-NamedPipeTransport::NamedPipeTransport(const char *path)
+
+bool NamedPipeConnector::connect(NamedPipeSocket &socket, const char *path)
 {
-    _pipe = CreateFile(path, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
-    this->_socket.assign(_pipe);
-}
-
-
-NamedPipeTransport::NamedPipeTransport()
-{}
-
-
-bool NamedPipeTransport::connect(const char *path)
-{
-    _pipe = CreateFile(path, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
-    if(!_pipe)
+    HANDLE pipe = CreateFile(path, GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+    if(!pipe)
     {
         return false;
     }
-    this->_socket.assign(_pipe);
+    socket.assign(pipe);
     return true;
 }
 

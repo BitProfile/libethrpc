@@ -4,26 +4,15 @@
 namespace Eth{
 
 
-UnixSocketTransport::UnixSocketTransport(const char *path)
+bool UnixSocketConnector::connect(UnixSocket &socket, const char *path)
 {
-    if(!connect(path))
-    {
-        throw std::runtime_error("failed to connect");
-    }
-}
-
-
-UnixSocketTransport::UnixSocketTransport()
-{}
-
-
-bool UnixSocketTransport::connect(const char *path)
-{
-    _endpoint.path(path);
+    UnixEndpoint endpoint(path);
     boost::system::error_code ec;
-    this->_socket.connect(_endpoint, ec);
+    socket.connect(endpoint, ec);
     return !ec;
 }
+
+
 
 
 

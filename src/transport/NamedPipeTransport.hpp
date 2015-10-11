@@ -10,18 +10,14 @@ namespace Eth{
 
 typedef boost::asio::windows::stream_handle NamedPipeSocket;
 
-
-class NamedPipeTransport : public GenericTransport<NamedPipeSocket>
+class NamedPipeConnector
 {
     public:
-        NamedPipeTransport(const char *);
-        NamedPipeTransport();
-
-        bool connect(const char *);
-
-    private:
-        HANDLE _pipe;
+        bool connect(NamedPipeSocket &, const char *);
 };
+
+typedef GenericTransport<NamedPipeSocket, NamedPipeConnector> NamedPipeTransport;
+
 
 
 }

@@ -12,12 +12,13 @@
 namespace Eth{
 
 
-template<class Socket>
+template<class Socket, class Connector>
 class GenericTransport
 {
     public:
         GenericTransport();
-        
+        GenericTransport(const char *);
+
         bool read(Json::Value &);
         Json::Value read();
         
@@ -38,11 +39,14 @@ class GenericTransport
 
         bool isConnected() const;
 
+        bool connect(const char *);
+
     protected:
         boost::asio::io_service _service;
         Socket _socket;
         JsonReader _reader;
         JsonWriter _writer;
+        Connector _connector;
 };
 
 

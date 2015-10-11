@@ -3,33 +3,51 @@
 namespace Eth{
 
 
-template<class Socket>
-GenericTransport<Socket>::GenericTransport() : 
+template<class Socket, class Connector>
+GenericTransport<Socket, Connector>::GenericTransport() : 
     _socket(_service)
 {}
 
-template<class Socket>
-bool GenericTransport<Socket>::read(Json::Value &message)
+template<class Socket, class Connector>
+GenericTransport<Socket, Connector>::GenericTransport(const char *uri)
+{
+    if(!_connector.connect(_socket, uri))
+    {
+        std::string error = "Connection to [";
+        error+=uri;
+        error+="] failed";
+        throw std::runtime_error(error);
+    }
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::connect(const char *uri)
+{
+    return _connector.connect(_socket, uri);
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::read(Json::Value &message)
 {
     return _reader.read(_socket, message);
 }
 
-template<class Socket>
-Json::Value GenericTransport<Socket>::read()
+template<class Socket, class Connector>
+Json::Value GenericTransport<Socket, Connector>::read()
 {
     return _reader.read(_socket);
 }
 
-template<class Socket>
-bool GenericTransport<Socket>::write(const Json::Value &message)
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::write(const Json::Value &message)
 {
     return _writer.write(_socket, message);
 }
 
 
 
-template<class Socket>
-Json::Value GenericTransport<Socket>::request(Json::Value &msg)
+template<class Socket, class Connector>
+Json::Value GenericTransport<Socket, Connector>::request(Json::Value &msg)
 {
     Json::Value response;
     if(!request(msg, response))
@@ -40,8 +58,8 @@ Json::Value GenericTransport<Socket>::request(Json::Value &msg)
     return response;
 }
 
-template<class Socket>
-bool GenericTransport<Socket>::request(Json::Value &msg, Json::Value &response)
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value &response)
 {
 
     unsigned id = (unsigned)time(NULL);
@@ -71,8 +89,8 @@ bool GenericTransport<Socket>::request(Json::Value &msg, Json::Value &response)
     return true;
 }
 
-template<class Socket>
-bool GenericTransport<Socket>::request(const char *method, const Arguments &args, Json::Value &result)
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(const char *method, const Arguments &args, Json::Value &result)
 {
    Json::Value message;
    RequestEncoder encoder;
@@ -80,8 +98,8 @@ bool GenericTransport<Socket>::request(const char *method, const Arguments &args
    return request(message, result);
 }
 
-template<class Socket>
-Json::Value GenericTransport<Socket>::request(const char *method, const Arguments &args)
+template<class Socket, class Connector>
+Json::Value GenericTransport<Socket, Connector>::request(const char *method, const Arguments &args)
 {
     Json::Value result;
     if(!request(method, args, result))
@@ -91,8 +109,8 @@ Json::Value GenericTransport<Socket>::request(const char *method, const Argument
     return result;
 }
 
-template<class Socket>
-bool GenericTransport<Socket>::request(const char *method, Json::Value &result)
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(const char *method, Json::Value &result)
 {
    Json::Value message;
    RequestEncoder encoder;
@@ -100,8 +118,8 @@ bool GenericTransport<Socket>::request(const char *method, Json::Value &result)
    return request(message, result);
 }
 
-template<class Socket>
-Json::Value GenericTransport<Socket>::request(const char *method)
+template<class Socket, class Connector>
+Json::Value GenericTransport<Socket, Connector>::request(const char *method)
 {
     Json::Value result;
     if(!request(method, result))
@@ -111,16 +129,16 @@ Json::Value GenericTransport<Socket>::request(const char *method)
     return result;
 }
 
-template<class Socket>
-Json::Value GenericTransport<Socket>::request(const char *method, const Json::Value &params)
+template<class Socket, class Connector>
+Json::Value GenericTransport<Socket, Connector>::request(const char *method, const Json::Value &params)
 {
    RequestEncoder encoder;
    Json::Value message = encoder.encode(method, params);
    return request(message);
 }
 
-template<class Socket>
-bool GenericTransport<Socket>::isConnected() const
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::isConnected() const
 {
     return _socket.is_open();
 }
