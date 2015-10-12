@@ -4,7 +4,9 @@
 
 namespace Eth{
 
-Provider::Provider(const char *uri)
+Provider::Provider(const char *uri, size_t retryLimit, size_t retryInterval): 
+    _retryLimit(retryLimit),
+    _retryInterval(retryInterval)
 {
     if(!connect(uri))
     {
@@ -12,7 +14,9 @@ Provider::Provider(const char *uri)
     }
 }
 
-Provider::Provider()
+Provider::Provider(size_t retryLimit, size_t retryInterval) : 
+    _retryLimit(retryLimit),
+    _retryInterval(retryInterval)
 {}
 
 
@@ -25,7 +29,7 @@ bool Provider::connect(const char *uri)
         {
             uri++;
         }
-        std::cout<<"uri = "<<uri<<"\n"<<std::flush;
+        _uri = uri;
         _connection.reset(new ConnectionAdapter<IpcTransport>);
         return _connection->connect(uri);
     }
@@ -69,7 +73,45 @@ Json::Value Provider::request(const char *method, const Arguments &args)
 
 bool Provider::request(Json::Value &request, Json::Value &response)
 {
-    return _connection->request(request, response);
+    if(!_connection->request(request, response))
+    {
+        size_t errors = 1;
+
+        while(errors <= _retryLimit)
+        {
+
+            LOG_DEBUG("request failed, retrying in "<<_retryInterval);
+
+            if(_retryInterval)
+            {
+                sleep(_retryInterval);
+            }
+            
+            if(_connection->connect(_uri.c_str()))
+            {
+                if(_connection->request(request, response))
+                {
+                    return true;
+                }
+                else
+                {
+                    LOG_DEBUG("failed to send request");
+                }
+            }
+            else
+            {
+                LOG_DEBUG("failed to re-establish connection to : "<<_uri.c_str());
+            }
+            
+            errors++;
+        }
+
+        LOG_DEBUG("request failed, too many errors : "<<errors);
+
+        return false;
+    }
+
+    return true;
 }
 
 bool Provider::request(const char *method, Json::Value &response)

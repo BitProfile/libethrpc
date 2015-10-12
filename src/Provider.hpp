@@ -10,8 +10,8 @@ namespace Eth{
 class Provider
 {
     public:
-        Provider(const char *uri);
-        Provider();
+        Provider(const char *uri, size_t retryLimit = 1, size_t retryInterval = 1);
+        Provider(size_t retryLimit = 1, size_t retryInterval = 1);
         bool connect(const char *uri);
         
         Json::Value request(Json::Value &);
@@ -53,6 +53,9 @@ class Provider
 
     private:
         boost::shared_ptr<Connection> _connection;
+        size_t _retryLimit;
+        size_t _retryInterval;
+        std::string _uri;
 };
 
 
