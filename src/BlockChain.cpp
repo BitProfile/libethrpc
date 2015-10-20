@@ -105,7 +105,12 @@ unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t 
     {
         filter["toBlock"] = Json::Value(hex(toBlock));
     }
-    filter["address"] = Json::Value(address);
+    filter["topics"] = Json::arrayValue;
+    
+    if(address)
+    {
+        filter["address"] = Json::Value(address);
+    }
 //    filter["address"].append(Json::Value(address));
 
     params.append(filter);
