@@ -10,7 +10,7 @@ Block::Block(const Json::Value &data) : _data(data)
 
 unsigned Block::getIndex() const
 {
-    return strtoul(_data["number"].asCString(), NULL, 16);
+    return unhex<uint32_t>(_data["number"].asCString());
 }
 
 std::string Block::getHash() const
@@ -20,32 +20,32 @@ std::string Block::getHash() const
 
 uint64_t Block::getNonce() const
 {
-    return strtoull(_data["nonce"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["nonce"].asCString());
 }
 
 uint64_t Block::getDifficulty() const
 {
-    return strtoull(_data["difficulty"].asCString(),NULL, 16);
+    return unhex<uint64_t>(_data["difficulty"].asCString());
 }
 
 size_t Block::getSize() const
 {
-    return strtoul(_data["size"].asCString(),NULL, 16);
+    return unhex<uint32_t>(_data["size"].asCString());
 }
 
 time_t Block::getTimestamp() const
 {
-    return strtoull(_data["timestamp"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["timestamp"].asCString());
 }
 
 uint64_t Block::getGasLimit() const
 {
-    return strtoull(_data["gasLimit"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["gasLimit"].asCString());
 }
 
 uint64_t Block::getGasUsed() const
 {
-    return strtoull(_data["gasUsed"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["gasUsed"].asCString());
 }
 
 Collection<std::string> Block::getTransactions() const

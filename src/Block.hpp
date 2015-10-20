@@ -4,7 +4,7 @@
 #include <string>
 
 #include "Collection.hpp"
-
+#include "hex.hpp"
 
 
 namespace Eth{
