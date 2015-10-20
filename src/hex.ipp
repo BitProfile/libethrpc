@@ -27,7 +27,7 @@ template<typename T>
 std::string hex(const T &value)
 {
     std::stringstream stream;
-    stream<<std::hex<<value;
+    stream<<"0x"<<std::hex<<value;
     return stream.str();
 }
 
