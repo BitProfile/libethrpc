@@ -4,7 +4,7 @@
 #include "Block.hpp"
 #include "Transaction.hpp"
 #include "Collection.hpp"
-#include "TransactionEvent.hpp"
+#include "FilterLog.hpp"
 
 namespace Eth{
 
@@ -37,7 +37,8 @@ class BlockChain
         unsigned setNewFilter(const char *address, size_t fromBlock=0, size_t toBlock=0);
         void removeFilter(unsigned id);
 
-        Collection<TransactionEvent> getEvents(unsigned id);
+        Collection<FilterLog> getFilterChanges(unsigned id);
+        Collection<FilterLog> getFilterLogs(unsigned id);
 
 
     private:

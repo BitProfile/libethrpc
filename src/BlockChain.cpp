@@ -100,13 +100,13 @@ unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t 
     {
         filter["fromBlock"] = (Json::Value::UInt)fromBlock;
     }
-    
+
     if(toBlock)
     {
         filter["toBlock"] = (Json::Value::UInt)toBlock;
     }
-
-    filter["address"] = address;
+    filter["address"] = Json::arrayValue;
+    filter["address"].append(Json::Value(address));
 
     params.append(filter);
 
@@ -123,10 +123,14 @@ void BlockChain::removeFilter(unsigned id)
     _provider.request("eth_uninstallFilter", Arguments(id));
 }
 
-Collection<TransactionEvent> BlockChain::getEvents(unsigned id)
+Collection<FilterLog> BlockChain::getFilterChanges(unsigned id)
 {
-    Collection<TransactionEvent> events(_provider.request("eth_getFilterChanges", Arguments(id)));
-    return events;
+    return Collection<FilterLog>(_provider.request("eth_getFilterChanges", Arguments(id)));
+}
+
+Collection<FilterLog> BlockChain::getFilterLogs(unsigned id)
+{
+    return Collection<FilterLog>(_provider.request("eth_getFilterLogs", Arguments(id)));
 }
 
 
