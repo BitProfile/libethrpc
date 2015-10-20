@@ -26,7 +26,7 @@ size_t BlockChain::getHeight()
 
 Block BlockChain::getBlock(size_t number)
 {
-    return Block(_provider.request("eth_getBlockByNumber", Arguments(number, false)));
+    return Block(_provider.request("eth_getBlockByNumber", Arguments(hex(number), false)));
 }
 
 
@@ -37,12 +37,12 @@ Block BlockChain::getBlock(const char *hash)
 
 Block BlockChain::getUncle(const char *blockHash, size_t index)
 {
-    return Block(_provider.request("eth_getUncleByBlockHashAndIndex", Arguments(blockHash, index)));
+    return Block(_provider.request("eth_getUncleByBlockHashAndIndex", Arguments(blockHash, hex(index))));
 }
 
 Block BlockChain::getUncle(size_t blockNumber, size_t index)
 {
-    return Block(_provider.request("eth_getUncleByBlockNumberAndIndex", Arguments(blockNumber, index)));
+    return Block(_provider.request("eth_getUncleByBlockNumberAndIndex", Arguments(hex(blockNumber), hex(index))));
 }
 
 Transaction BlockChain::getTransaction(const char *hash)
@@ -52,17 +52,17 @@ Transaction BlockChain::getTransaction(const char *hash)
 
 Transaction BlockChain::getBlockTransaction(const char *blockHash, size_t index)
 {
-    return Transaction(_provider.request("eth_getTransactionByBlockHashAndIndex", Arguments(blockHash, index)));
+    return Transaction(_provider.request("eth_getTransactionByBlockHashAndIndex", Arguments(blockHash, hex(index))));
 }
 
 Transaction BlockChain::getBlockTransaction(size_t blockNumber, size_t index)
 {
-    return Transaction(_provider.request("eth_getTransactionByBlockNumberAndIndex", Arguments(blockNumber, index)));
+    return Transaction(_provider.request("eth_getTransactionByBlockNumberAndIndex", Arguments(hex(blockNumber), hex(index))));
 }
 
 size_t BlockChain::getBlockTransactionsCount(size_t blockNumber)
 {
-    Json::Value result = _provider.request("eth_getBlockTransactionCountByNumber", Arguments(blockNumber));
+    Json::Value result = _provider.request("eth_getBlockTransactionCountByNumber", Arguments(hex(blockNumber)));
     return result.asUInt();
 }
 
@@ -74,7 +74,7 @@ size_t BlockChain::getBlockTransactionsCount(const char *hash)
 
 size_t BlockChain::getBlockUnclesCount(size_t blockNumber)
 {
-    Json::Value result = _provider.request("eth_getUncleCountByBlockNumber", Arguments(blockNumber));
+    Json::Value result = _provider.request("eth_getUncleCountByBlockNumber", Arguments(hex(blockNumber)));
     return result.asUInt();
 }
 
@@ -98,15 +98,15 @@ unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t 
     
     if(fromBlock)
     {
-        filter["fromBlock"] = (Json::Value::UInt)fromBlock;
+        filter["fromBlock"] = Json::Value(hex(fromBlock));
     }
 
     if(toBlock)
     {
-        filter["toBlock"] = (Json::Value::UInt)toBlock;
+        filter["toBlock"] = Json::Value(hex(toBlock));
     }
-    filter["address"] = Json::arrayValue;
-    filter["address"].append(Json::Value(address));
+    filter["address"] = Json::Value(address);
+//    filter["address"].append(Json::Value(address));
 
     params.append(filter);
 
@@ -115,22 +115,22 @@ unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t 
         throw std::runtime_error("failed to set filter");
     }
 
-     return strtoull(result.asCString(), NULL, 16);
+     return unhex<uint32_t>(result.asCString());
 }
 
 void BlockChain::removeFilter(unsigned id)
 {
-    _provider.request("eth_uninstallFilter", Arguments(id));
+    _provider.request("eth_uninstallFilter", Arguments(hex(id)));
 }
 
 Collection<FilterLog> BlockChain::getFilterChanges(unsigned id)
 {
-    return Collection<FilterLog>(_provider.request("eth_getFilterChanges", Arguments(id)));
+    return Collection<FilterLog>(_provider.request("eth_getFilterChanges", Arguments(hex(id))));
 }
 
 Collection<FilterLog> BlockChain::getFilterLogs(unsigned id)
 {
-    return Collection<FilterLog>(_provider.request("eth_getFilterLogs", Arguments(id)));
+    return Collection<FilterLog>(_provider.request("eth_getFilterLogs", Arguments(hex(id))));
 }
 
 
