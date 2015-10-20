@@ -15,7 +15,7 @@ std::string Transaction::getHash() const
 
 uint64_t Transaction::getAmount() const
 {
-    return strtoull(_data["value"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["value"].asCString());
 }
 
 std::string Transaction::getSender() const
@@ -30,27 +30,27 @@ std::string Transaction::getReceiver() const
 
 size_t Transaction::getNonce() const
 {
-    return strtoul(_data["nonce"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["nonce"].asCString());
 }
 
 uint64_t Transaction::getGas() const
 {
-    return strtoull(_data["gas"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["gas"].asCString());
 }
 
 uint64_t Transaction::getGasPrice() const
 {
-    return strtoull(_data["gasPrice"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["gasPrice"].asCString());
 }
 
 size_t Transaction::getBlockNumber() const
 {
-    return strtoul(_data["blockNumber"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["blockNumber"].asCString());
 }
 
 size_t Transaction::getTransactionIndex() const
 {
-    return strtoul(_data["transactionIndex"].asCString(), NULL, 16);
+    return unhex<uint64_t>(_data["transactionIndex"].asCString());
 }
 
 std::string Transaction::getBlockHash() const

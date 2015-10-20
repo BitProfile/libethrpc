@@ -3,7 +3,7 @@
 #include <json/value.h>
 #include <string>
 #include <stdint.h>
-
+#include "hex.hpp"
 
 namespace Eth{
 
