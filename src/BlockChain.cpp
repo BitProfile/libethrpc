@@ -92,52 +92,5 @@ size_t BlockChain::getTransactionsCount(const char *address)
 }
 
 
-unsigned BlockChain::setNewFilter(const char *address, size_t fromBlock, size_t toBlock)
-{
-    Json::Value params = Json::arrayValue, result, filter;
-    
-    if(fromBlock)
-    {
-        filter["fromBlock"] = Json::Value(hex(fromBlock));
-    }
-
-    if(toBlock)
-    {
-        filter["toBlock"] = Json::Value(hex(toBlock));
-    }
-    
-    filter["topics"] = Json::arrayValue;
-    
-    if(address)
-    {
-        filter["address"] = Json::Value(address);
-    }
-//    filter["address"].append(Json::Value(address));
-
-    params.append(filter);
-
-    if(!_provider.request("eth_newFilter", params, result))
-    {
-        throw std::runtime_error("failed to set filter");
-    }
-
-     return unhex<uint32_t>(result.asCString());
-}
-
-void BlockChain::removeFilter(unsigned id)
-{
-    _provider.request("eth_uninstallFilter", Arguments(hex(id)));
-}
-
-Collection<FilterLog> BlockChain::getFilterChanges(unsigned id)
-{
-    return Collection<FilterLog>(_provider.request("eth_getFilterChanges", Arguments(hex(id))));
-}
-
-Collection<FilterLog> BlockChain::getFilterLogs(unsigned id)
-{
-    return Collection<FilterLog>(_provider.request("eth_getFilterLogs", Arguments(hex(id))));
-}
-
 
 }
