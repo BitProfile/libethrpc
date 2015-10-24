@@ -1,5 +1,7 @@
 
-#include "BlockChain.hpp"
+#include "Provider.hpp"
+#include "FilterBuilder.hpp"
+#include "Filter.hpp"
 
 using namespace Eth;
 
@@ -7,13 +9,21 @@ using namespace Eth;
 int main()
 {
     Provider provider("ipc://home/vic/.ethereum/geth.ipc");
-    BlockChain blockchain(provider);
 
-    uint64_t id = blockchain.setNewFilter("0x1194e966965418c7d73a42cceeb254d875860356", 1);
-    std::cout<<"filter id "<<id<<"\n";
+    FilterBuilder builder(provider);
+
+    builder.setAddress("0x1194e966965418c7d73a42cceeb254d875860356");
+
+    Filter filter1 = builder.build();
+    builder.reset();
+    Filter filter2 = builder.build();
+    
+
+    std::cout<<"filter id "<<filter1.getId()<<"\n";
+    std::cout<<"filter id "<<filter2.getId()<<"\n";
 
     sleep(2);
-    Collection<FilterLog> events = blockchain.getFilterChanges(id);
+    Collection<FilterLog> events = filter1.getChanges();
     
     std::cout<<"events ("<<events.size()<<") : \n";
     
