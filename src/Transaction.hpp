@@ -3,7 +3,11 @@
 #include <json/value.h>
 #include <string>
 #include <stdint.h>
+
+#include <boost/multiprecision/cpp_int.hpp>
+
 #include "hex.hpp"
+
 
 namespace Eth{
 
@@ -14,7 +18,7 @@ class Transaction
     public:
         Transaction(const Json::Value &);
         std::string getHash() const;
-        uint64_t getAmount() const;
+        boost::multiprecision::cpp_int getAmount() const;
         std::string getSender() const;
         std::string getReceiver() const;
         size_t getNonce() const;
@@ -24,6 +28,8 @@ class Transaction
         size_t getBlockNumber() const;
         size_t getTransactionIndex() const;
         std::string getBlockHash() const;
+
+        std::string getInput() const;
 
     private:
         Json::Value _data;

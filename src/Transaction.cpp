@@ -13,9 +13,9 @@ std::string Transaction::getHash() const
     return _data["hash"].asString();
 }
 
-uint64_t Transaction::getAmount() const
+boost::multiprecision::cpp_int Transaction::getAmount() const
 {
-    return unhex<uint64_t>(_data["value"].asCString());
+    return unhex<boost::multiprecision::cpp_int>(_data["value"].asCString());
 }
 
 std::string Transaction::getSender() const
@@ -58,5 +58,9 @@ std::string Transaction::getBlockHash() const
     return _data["blockHash"].asString();
 }
 
+std::string Transaction::getInput() const
+{
+    return _data["input"].asString();
+}
 
 }
