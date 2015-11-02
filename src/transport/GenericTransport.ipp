@@ -9,7 +9,8 @@ GenericTransport<Socket, Connector>::GenericTransport() :
 {}
 
 template<class Socket, class Connector>
-GenericTransport<Socket, Connector>::GenericTransport(const char *uri)
+GenericTransport<Socket, Connector>::GenericTransport(const char *uri):
+    _socket(_service)
 {
     if(!_connector.connect(_socket, uri))
     {
