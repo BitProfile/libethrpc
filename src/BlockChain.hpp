@@ -41,6 +41,7 @@ class BlockChain
         Collection<FilterLog> getFilterLogs(unsigned id);
 
 
+
     private:
         Provider &_provider;
 };
