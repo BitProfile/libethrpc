@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include <boost/multiprecision/cpp_int.hpp>
+#include "BigInt.hpp"
 
 namespace Eth{
 
@@ -27,7 +27,9 @@ template<>
 uint64_t unhex<uint64_t>(const char *);
 
 template<>
-boost::multiprecision::cpp_int unhex<boost::multiprecision::cpp_int>(const char *);
+BigInt unhex<BigInt>(const char *);
+
+
 
 }
 

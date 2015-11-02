@@ -32,9 +32,9 @@ std::string hex(const T &value)
 }
 
 template<>
-inline boost::multiprecision::cpp_int unhex<boost::multiprecision::cpp_int>(const char *value)
+inline BigInt unhex<BigInt>(const char *value)
 {
-    return boost::multiprecision::cpp_int(value);
+    return BigInt(value);
 }
 
 }

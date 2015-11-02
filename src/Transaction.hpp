@@ -4,7 +4,7 @@
 #include <string>
 #include <stdint.h>
 
-#include <boost/multiprecision/cpp_int.hpp>
+#include "BigInt.hpp"
 
 #include "hex.hpp"
 
@@ -18,7 +18,7 @@ class Transaction
     public:
         Transaction(const Json::Value &);
         std::string getHash() const;
-        boost::multiprecision::cpp_int getAmount() const;
+        BigInt getAmount() const;
         std::string getSender() const;
         std::string getReceiver() const;
         size_t getNonce() const;
