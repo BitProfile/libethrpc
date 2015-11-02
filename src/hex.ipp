@@ -1,5 +1,4 @@
 
-
 namespace Eth{
 
 template<typename T>
@@ -19,7 +18,8 @@ inline uint32_t unhex<uint32_t>(const char *value)
 template<>
 inline uint64_t unhex<uint64_t>(const char *value)
 {
-    return strtoull(value, NULL, 16);
+    uint64_t result = strtoull(value, NULL, 16);
+    return result;
 }
 
 
@@ -31,5 +31,10 @@ std::string hex(const T &value)
     return stream.str();
 }
 
+template<>
+inline boost::multiprecision::cpp_int unhex<boost::multiprecision::cpp_int>(const char *value)
+{
+    return boost::multiprecision::cpp_int(value);
+}
 
 }
