@@ -8,20 +8,19 @@ namespace Eth{
 template<class Socket>
 bool JsonReader::read(Socket &socket, Json::Value &message)
 {
-
-    //ToDo : analyze json delimiters
     boost::asio::streambuf buffer;
-    size_t size = boost::asio::read_until(socket, buffer, '}');
-    if(!size)
+    boost::system::error_code error;
+    size_t size = boost::asio::read_until(socket, buffer, JsonMatcher(), error);
+    if(!size||error)
     {
-        LOG_DEBUG("failed to read response");
+        LOG_DEBUG("failed to read response: "<<error.message());
         return false;
     }
 
     Json::Reader reader;
     const char *data = boost::asio::buffer_cast<const char*>(buffer.data());
-    LOG_DEBUG("got : "<<data);
-    if(!reader.parse(data, data+buffer.size(), message, false))
+    LOG_DEBUG("got ("<<size<<" buf "<<buffer.size()<<") : "<<data);
+    if(!reader.parse(data, data+size+1, message, false))
     {
         LOG_DEBUG("failed to parse json");
         return false;

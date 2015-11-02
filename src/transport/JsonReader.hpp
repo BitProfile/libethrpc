@@ -5,6 +5,7 @@
 #include <json/reader.h>
 #include <stdexcept>
 
+#include "JsonMatcher.hpp"
 #include "debug.hpp"
 
 namespace Eth{
