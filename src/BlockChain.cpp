@@ -91,11 +91,7 @@ size_t BlockChain::getTransactionsCount(const char *address)
     return unhex<uint64_t>(result.asCString());
 }
 
-size_t BlockChain::getHeight()
-{
-    Json::Value result = _provider.request("eth_blockNumber");
-    
-}
+
 
 
 }
