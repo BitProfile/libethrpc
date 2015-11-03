@@ -4,7 +4,7 @@
 #include "BlockChain.hpp"
 #include "Provider.hpp"
 
-using namespace Eth;
+using namespace Ethereum::Connector;
 
 int main()
 {
