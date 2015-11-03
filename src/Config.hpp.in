@@ -1,0 +1,2 @@
+#define Eth_Connector_VERSION_MAJOR @Eth_Connector_VERSION_MAJOR@
+#define Eth_Connector_VERSION_MINOR @Eth_Connector_VERSION_MINOR@
