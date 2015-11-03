@@ -9,7 +9,7 @@
 
 #include "Arguments.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 template<class Socket, class Connector>
@@ -52,7 +52,7 @@ class GenericTransport
 
 
 
-}
+}}
 
 #include "GenericTransport.ipp"
 

@@ -9,7 +9,7 @@
 #include "Collection.hpp"
 #include "hex.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 class Wallet
 {
@@ -72,4 +72,4 @@ class Wallet
 
 };
 
-}
+}}

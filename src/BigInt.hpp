@@ -3,8 +3,8 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 typedef boost::multiprecision::cpp_int BigInt;
 
-}
+}}

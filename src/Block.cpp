@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Block::Block(const Json::Value &data) : _data(data)
 {}
@@ -58,4 +58,4 @@ Collection<std::string> Block::getUncles() const
     return Collection<std::string>(_data["uncles"]);
 }
 
-}
+}}

@@ -4,8 +4,7 @@
 #include "transport/IpcTransport.hpp"
 #include "transport/Arguments.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class Provider
 {
@@ -61,4 +60,4 @@ class Provider
 
 
 
-}
+}}

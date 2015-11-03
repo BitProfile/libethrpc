@@ -2,7 +2,7 @@
 #include "Provider.hpp"
 #include "transport/RequestEncoder.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Provider::Provider(const char *uri, size_t retryLimit, size_t retryInterval): 
     _retryLimit(retryLimit),
@@ -177,4 +177,4 @@ bool Provider::ConnectionAdapter<Transport>::connect(const char *uri)
 }
 
 
-}
+}}

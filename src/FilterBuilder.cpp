@@ -2,8 +2,7 @@
 #include "FilterBuilder.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 FilterBuilder::FilterBuilder(Provider &provider) : 
     _provider(provider)
@@ -69,4 +68,4 @@ Filter FilterBuilder::build()
 }
 
 
-}
+}}

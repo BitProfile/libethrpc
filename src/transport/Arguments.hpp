@@ -3,7 +3,7 @@
 #include <json/value.h>
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 class Arguments
@@ -54,6 +54,6 @@ class Arguments
 
 
 
-}
+}}
 
 #include "Arguments.ipp"

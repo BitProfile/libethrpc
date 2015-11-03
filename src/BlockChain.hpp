@@ -6,8 +6,7 @@
 #include "Collection.hpp"
 #include "FilterLog.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class BlockChain
 {
@@ -47,4 +46,4 @@ class BlockChain
 };
 
 
-}
+}}

@@ -8,9 +8,9 @@
 #define IPC_TRANSPORT_CLASS_NAME UnixSocketTransport
 #endif
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 typedef IPC_TRANSPORT_CLASS_NAME IpcTransport;
 
 
-}
+}}

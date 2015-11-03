@@ -5,7 +5,7 @@
 
 #include "GenericTransport.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 typedef boost::asio::local::stream_protocol::socket UnixSocket;
@@ -22,6 +22,6 @@ typedef GenericTransport<UnixSocket, UnixSocketConnector> UnixSocketTransport;
 
 
 
-}
+}}
 
 

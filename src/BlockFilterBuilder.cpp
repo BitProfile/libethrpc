@@ -1,6 +1,6 @@
 #include "BlockFilterBuilder.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 BlockFilterBuilder::BlockFilterBuilder(Provider &provider) :
     _provider(provider)
@@ -18,4 +18,4 @@ Filter BlockFilterBuilder::build()
      return Filter(_provider, unhex<uint32_t>(result.asCString()));
 }
 
-}
+}}

@@ -3,8 +3,7 @@
 #include "Filter.hpp"
 #include "Provider.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class BlockFilterBuilder
 {
@@ -21,4 +20,4 @@ class BlockFilterBuilder
 };
 
 
-}
+}}

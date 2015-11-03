@@ -4,8 +4,7 @@
 #include <json/value.h>
 #include <stdint.h>
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 template<class T>
 class Decoder
@@ -49,6 +48,6 @@ class Decoder<bool>
 };
 
 
-}
+}}
 
 #include "Decoder.ipp"

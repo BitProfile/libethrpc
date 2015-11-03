@@ -1,7 +1,7 @@
 
 #include "Compiler.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Compiler::Compiler(Provider &provider) :
     _provider(provider)
@@ -100,4 +100,4 @@ bool Compiler::compileSolidity(const std::string &code, std::string &result)
     return compile("eth_compileSolidity", code, result);
 }
 
-}
+}}

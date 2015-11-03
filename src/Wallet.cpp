@@ -1,6 +1,6 @@
 #include "Wallet.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Wallet::Wallet(Provider &provider) :
     _provider(provider)
@@ -244,4 +244,4 @@ inline Json::Value Wallet::buildTransactionRequest(const char *from, const char 
 }
 
 
-}
+}}

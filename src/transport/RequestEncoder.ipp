@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 inline Json::Value RequestEncoder::encode(const char *method, const Arguments &args)
@@ -40,4 +40,4 @@ inline void RequestEncoder::encode(const char *method, const Json::Value &params
 }
 
 
-}
+}}

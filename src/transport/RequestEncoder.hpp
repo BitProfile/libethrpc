@@ -5,7 +5,7 @@
 
 #include "Arguments.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 class RequestEncoder
@@ -21,6 +21,6 @@ class RequestEncoder
 
 
 
-}
+}}
 
 #include "RequestEncoder.ipp"

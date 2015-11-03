@@ -8,7 +8,7 @@
 #include "JsonMatcher.hpp"
 #include "debug.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 class JsonReader
@@ -28,6 +28,6 @@ class JsonReader
 
 
 
-}
+}}
 
 #include "JsonReader.ipp"

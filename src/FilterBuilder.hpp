@@ -7,8 +7,7 @@
 #include "Filter.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class FilterBuilder
 {
@@ -37,5 +36,5 @@ class FilterBuilder
 };
 
 
-}
+}}
 

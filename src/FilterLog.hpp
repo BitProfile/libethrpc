@@ -4,8 +4,7 @@
 #include <stdint.h>
 #include <cstdlib>
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class FilterLog
 {
@@ -25,4 +24,4 @@ class FilterLog
 
 
 
-}
+}}

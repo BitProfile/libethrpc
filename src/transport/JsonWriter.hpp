@@ -5,7 +5,7 @@
 
 #include "debug.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 
@@ -20,6 +20,6 @@ class JsonWriter
 
 
 
-}
+}}
 
 #include "JsonWriter.ipp"

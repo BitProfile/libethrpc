@@ -3,7 +3,7 @@
 
 #ifdef BOOST_OS_WINDOWS
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 bool NamedPipeConnector::connect(NamedPipeSocket &socket, const char *path)
@@ -19,7 +19,7 @@ bool NamedPipeConnector::connect(NamedPipeSocket &socket, const char *path)
 
 
 
-}
+}}
 
 
 #endif

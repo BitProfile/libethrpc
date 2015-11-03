@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 
@@ -31,4 +31,4 @@ bool JsonWriter::write(Socket &socket, const Json::Value &json)
 }
 
 
-}
+}}

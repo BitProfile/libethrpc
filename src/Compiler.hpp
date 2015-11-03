@@ -4,8 +4,7 @@
 #include "Provider.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class Compiler
 {
@@ -45,4 +44,4 @@ class Compiler
 };
 
 
-}
+}}

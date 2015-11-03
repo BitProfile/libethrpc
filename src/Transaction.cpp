@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Transaction::Transaction(const Json::Value &data) : _data(data)
 {}
@@ -63,4 +63,4 @@ std::string Transaction::getInput() const
     return _data["input"].asString();
 }
 
-}
+}}

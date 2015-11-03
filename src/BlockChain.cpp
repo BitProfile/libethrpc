@@ -1,8 +1,7 @@
 
 #include "BlockChain.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 BlockChain::BlockChain(Provider &provider) :
     _provider(provider)
@@ -94,4 +93,4 @@ size_t BlockChain::getTransactionsCount(const char *address)
 
 
 
-}
+}}

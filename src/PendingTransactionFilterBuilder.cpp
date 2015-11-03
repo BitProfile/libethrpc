@@ -1,8 +1,7 @@
 #include "PendingTransactionFilterBuilder.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 PendingTransactionFilterBuilder::PendingTransactionFilterBuilder(Provider &provider) :
     _provider(provider)
@@ -23,4 +22,5 @@ Filter PendingTransactionFilterBuilder::build()
      return Filter(_provider, unhex<uint32_t>(result.asCString()));
 }
 
-}
+
+}}

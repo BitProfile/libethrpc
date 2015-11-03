@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 
@@ -43,4 +43,4 @@ Json::Value JsonReader::read(Socket &socket)
 
 
 
-}
+}}

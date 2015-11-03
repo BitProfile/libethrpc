@@ -2,7 +2,7 @@
 
 #include <utility>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 class JsonMatcher
@@ -20,11 +20,11 @@ class JsonMatcher
 };
 
 
-}
+}}
 
 namespace boost {namespace asio {
 
-    template <> struct is_match_condition<Eth::JsonMatcher> : public boost::true_type {};
+    template <> struct is_match_condition<Ethereum::Connector::JsonMatcher> : public boost::true_type {};
 
 }}
 

@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 template<class T>
 Collection<T>::Collection(const Json::Value &data) :
@@ -26,4 +26,4 @@ size_t Collection<T>::size() const
 }
 
 
-}
+}}

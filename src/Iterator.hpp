@@ -5,9 +5,10 @@
 
 #include "Decoder.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
-template<class Data, class Decoder=typename Eth::Decoder<Data> >
+
+template<class Data, class Decoder=typename Ethereum::Connector::Decoder<Data> >
 class Iterator: 
     public boost::iterator_facade<
         Iterator<Data,Decoder>,
@@ -33,6 +34,6 @@ class Iterator:
 
 
 
-}
+}}
 
 #include "Iterator.ipp"

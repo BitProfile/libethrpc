@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <stdexcept>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 typedef boost::asio::windows::stream_handle NamedPipeSocket;
 
@@ -20,6 +20,6 @@ typedef GenericTransport<NamedPipeSocket, NamedPipeConnector> NamedPipeTransport
 
 
 
-}
+}}
 
 #endif

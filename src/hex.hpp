@@ -9,8 +9,7 @@
 
 #include "BigInt.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 template<typename T>
 std::string hex(const T &);
@@ -31,6 +30,6 @@ BigInt unhex<BigInt>(const char *);
 
 
 
-}
+}}
 
 #include "hex.ipp"

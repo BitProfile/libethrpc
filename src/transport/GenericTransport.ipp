@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 template<class Socket, class Connector>
@@ -145,4 +145,4 @@ bool GenericTransport<Socket, Connector>::isConnected() const
 }
 
 
-}
+}}

@@ -6,8 +6,7 @@
 #include "Provider.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 class DB 
 {
@@ -28,5 +27,5 @@ class DB
 
 
 
-} 
+}}
 

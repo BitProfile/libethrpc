@@ -1,6 +1,6 @@
 #include "Filter.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 Filter::Filter(Provider &provider, unsigned id) :
     _provider(provider),
@@ -39,4 +39,4 @@ unsigned Filter::getId()
     return _id;
 }
 
-}
+}}

@@ -4,6 +4,8 @@
 #include "Provider.hpp"
 #include "Compiler.hpp"
 
+using namespace Ethereum::Connector;
+
 int main()
 {
     Provider provider("ipc://home/vic/.ethereum/geth.ipc");

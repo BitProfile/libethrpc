@@ -3,8 +3,7 @@
 #include "BlockFilterBuilder.hpp"
 #include "Filter.hpp"
 
-using namespace Eth;
-
+using namespace Ethereum::Connector;
 
 int main()
 {

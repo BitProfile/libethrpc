@@ -3,15 +3,14 @@
 #include <json/value.h>
 #include "Iterator.hpp"
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 template<class T>
 class Collection
 {
 
     public:
-        typedef Eth::Iterator<T> Iterator;
+        typedef Ethereum::Connector::Iterator<T> Iterator;
 
     public:
 
@@ -28,6 +27,6 @@ class Collection
 };
 
 
-}
+}}
 
 #include "Collection.ipp"

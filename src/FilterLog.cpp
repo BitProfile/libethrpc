@@ -1,6 +1,6 @@
 #include "FilterLog.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 FilterLog::FilterLog(const Json::Value &data) : _data(data)
 {}
@@ -36,4 +36,4 @@ uint64_t FilterLog::getBlockIndex() const
 }
 
 
-}
+}}

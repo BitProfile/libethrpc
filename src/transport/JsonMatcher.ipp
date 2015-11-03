@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 inline JsonMatcher::JsonMatcher() :
     _string(false),
@@ -63,4 +63,4 @@ std::pair<Iterator, bool> JsonMatcher::operator()(Iterator it, Iterator end) con
     return std::make_pair(end, false);
 }
 
-}
+}}

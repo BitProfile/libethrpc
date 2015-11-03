@@ -1,5 +1,6 @@
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
+
 
 template<typename T>
 T unhex(const char *value)
@@ -37,4 +38,4 @@ inline BigInt unhex<BigInt>(const char *value)
     return BigInt(value);
 }
 
-}
+}}

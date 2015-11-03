@@ -1,7 +1,7 @@
 #include "UnixSocketTransport.hpp"
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 
 bool UnixSocketConnector::connect(UnixSocket &socket, const char *path)
@@ -31,5 +31,5 @@ bool UnixSocketConnector::connect(UnixSocket &socket, const char *path)
 
 
 
-}
+}}
 

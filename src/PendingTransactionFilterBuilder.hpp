@@ -5,8 +5,7 @@
 #include "Provider.hpp"
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 
 class PendingTransactionFilterBuilder
@@ -20,4 +19,4 @@ class PendingTransactionFilterBuilder
 };
 
 
-}
+}}

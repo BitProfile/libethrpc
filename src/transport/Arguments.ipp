@@ -1,4 +1,4 @@
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 inline Arguments::Arguments() : _value(Json::arrayValue)
 {}
@@ -110,4 +110,4 @@ inline const Json::Value & Arguments::toJson() const
 }
 
 
-}
+}}

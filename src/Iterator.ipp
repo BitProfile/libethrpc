@@ -1,6 +1,6 @@
 
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 template<class Data, class Decoder>
 Iterator<Data, Decoder>::Iterator(const Json::Value::const_iterator &it) : 
@@ -33,4 +33,4 @@ void Iterator<Data, Decoder>::decrement()
 }
 
 
-}
+}}

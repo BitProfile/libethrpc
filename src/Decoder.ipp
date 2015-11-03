@@ -1,7 +1,6 @@
 
 
-namespace Eth{
-
+namespace Ethereum{namespace Connector{
 
 template<class T>
 T Decoder<T>::decode(const Json::Value &data) const
@@ -34,4 +33,4 @@ inline bool Decoder<bool>::decode(const Json::Value &data) const
 }
 
 
-}
+}}

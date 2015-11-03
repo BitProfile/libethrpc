@@ -1,6 +1,6 @@
 #include "DB.hpp"
 
-namespace Eth{
+namespace Ethereum{namespace Connector{
 
 DB::DB(Provider &provider) :
     _provider(provider)
@@ -56,4 +56,4 @@ bool DB::getString(const std::string &dbName, const std::string &key, std::strin
 }
 
 
-}
+}}
