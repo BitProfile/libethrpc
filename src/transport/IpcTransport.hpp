@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef BOOST_WINDOWS_OS
+#if defined(__MINGW32__)
 #include "NamedPipeTransport.hpp"
 #define IPC_TRANSPORT_CLASS_NAME NamedPipeTransport
 #else
