@@ -6,11 +6,18 @@
 
 using namespace Ethereum::Connector;
 
-int main()
+int main(int argc, char **argv)
 {
-    Provider provider("ipc://home/vic/.ethereum/geth.ipc");
+    if(argc < 3)
+    {
+        std::cout<<"usage : transaction [block] [index]"<<std::endl;
+        exit(1)
+    }
+
+    DefaultGethPath path;
+    Provider provider(path);
     BlockChain blockchain(provider);
-    Transaction transaction = blockchain.getBlockTransaction(329513, 1);
+    Transaction transaction = blockchain.getBlockTransaction(atol(argv[1]), atol(argv[2]));
 
     std::cout<<"hash : "<<transaction.getHash()<<std::endl;
     std::cout<<"nonce : "<<transaction.getNonce()<<std::endl;
