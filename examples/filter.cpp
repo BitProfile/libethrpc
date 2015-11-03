@@ -5,13 +5,20 @@
 
 using namespace Ethereum::Connector;
 
-int main()
+int main(int argc, char **argv)
 {
-    Provider provider("ipc://home/vic/.ethereum/geth.ipc");
+    if(argc < 2)
+    {
+        std::cout<<"usage : filter [address]"<<std::endl;
+        return 1;
+    }
+
+    DefaultGethPath path;
+    Provider provider(path);
 
     FilterBuilder builder(provider);
 
-    builder.setAddress("0x1194e966965418c7d73a42cceeb254d875860356");
+    builder.setAddress(argv[1]);
 
     Filter filter1 = builder.build();
     builder.reset();
