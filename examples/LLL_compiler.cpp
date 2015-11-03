@@ -8,7 +8,8 @@ using namespace Ethereum::Connector;
 
 int main()
 {
-    Provider provider("ipc://home/vic/.ethereum/geth.ipc");
+    DefaultGethPath path;
+    Provider provider(path);
     Compiler compiler(provider);
     std::string code = compiler.compileLLL("(returnlll (suicide (caller)))");
     std::cout<<"code: "<<code<<std::endl;
