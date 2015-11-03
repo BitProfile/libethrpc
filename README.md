@@ -1,4 +1,4 @@
-#Build
+##Build
 
 ```
     mkdir build;
@@ -8,6 +8,6 @@
 
 Requires Boost libraries and JspnCpp
 
-#Usage
+##Usage
 
 See examples directory
