@@ -3,15 +3,21 @@
 
 #include "transport/IpcTransport.hpp"
 #include "transport/Arguments.hpp"
+#include "transport/Path.hpp"
 
 namespace Ethereum{namespace Connector{
 
 class Provider
 {
     public:
-        Provider(const char *uri, size_t retryLimit = 1, size_t retryInterval = 1);
-        Provider(size_t retryLimit = 1, size_t retryInterval = 1);
+        Provider(const char *uri);
+        Provider(const Path &);
+        Provider();
+        
         bool connect(const char *uri);
+        
+        void setRetryLimit(size_t );
+        void setRetryInterval(size_t);
         
         Json::Value request(Json::Value &);
         bool request(Json::Value &, Json::Value &);
