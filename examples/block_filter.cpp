@@ -7,7 +7,8 @@ using namespace Ethereum::Connector;
 
 int main()
 {
-    Provider provider("ipc://home/vic/.ethereum/geth.ipc");
+    DefaultGethPath path;
+    Provider provider(path);
 
     BlockFilterBuilder builder(provider);
     Filter filter = builder.build();
