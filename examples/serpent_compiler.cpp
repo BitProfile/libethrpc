@@ -8,7 +8,8 @@ using namespace Ethereum::Connector;
 
 int main()
 {
-    Provider provider("ipc://home/vic/.ethereum/geth.ipc");
+    DefaultGethPath path;
+    Provider provider(path);
     Compiler compiler(provider);
     std::string code = compiler.compileSerpent("/* some serpent */");
     std::cout<<"code: "<<code<<std::endl;
