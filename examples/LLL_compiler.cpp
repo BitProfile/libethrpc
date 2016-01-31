@@ -8,8 +8,9 @@ using namespace Ethereum::Connector;
 
 int main()
 {
-    DefaultGethPath path;
-    Provider provider(path);
+    Provider provider;
+    provider.connect();  //using default geth path
+
     Compiler compiler(provider);
     std::string code = compiler.compileLLL("(returnlll (suicide (caller)))");
     std::cout<<"code: "<<code<<std::endl;

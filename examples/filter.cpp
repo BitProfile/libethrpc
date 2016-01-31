@@ -13,8 +13,8 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    DefaultGethPath path;
-    Provider provider(path);
+    Provider provider; 
+    provider.connect();//using default geth path
 
     FilterBuilder builder(provider);
 

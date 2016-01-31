@@ -11,11 +11,12 @@ int main(int argc, char **argv)
     if(argc < 3)
     {
         std::cout<<"usage : transaction [block] [index]"<<std::endl;
-        exit(1)
+        exit(1);
     }
 
-    DefaultGethPath path;
-    Provider provider(path);
+    Provider provider;
+    provider.connect();  //using default geth path
+
     BlockChain blockchain(provider);
     Transaction transaction = blockchain.getBlockTransaction(atol(argv[1]), atol(argv[2]));
 

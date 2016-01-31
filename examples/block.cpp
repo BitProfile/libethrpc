@@ -13,8 +13,9 @@ int main(int argc, char **argv)
         std::cout<<"usage: block [blockNumber]"<<std::endl;
         exit(1);
     }
-    DefaultGethPath path;
-    Provider provider(path);
+    Provider provider;
+    provider.connect(); //using default geth path
+
     BlockChain blockchain(provider);
     Block block = blockchain.getBlock(atoll(argv[1]));
 
@@ -27,7 +28,7 @@ int main(int argc, char **argv)
     std::cout<<"gas used = "<<block.getGasUsed()<<"\n";
     std::cout<<"gas limit = "<<block.getGasLimit()<<"\n";
 
-    Collection<std::string> uncles = block.getUncles();
+    Collection<std::string> uncles = block.getUnclesHashes();
     std::cout<<"uncles: ";
     for(Collection<std::string>::Iterator it = uncles.begin(), end = uncles.end(); it!= end; ++it)
     {
@@ -35,7 +36,7 @@ int main(int argc, char **argv)
     }
     std::cout<<"\n";
 
-    Collection<std::string> transactions = block.getTransactions();
+    Collection<std::string> transactions = block.getTransactionsHashes();
     std::cout<<"transactions : ";
     for(Collection<std::string>::Iterator it = transactions.begin(), end = transactions.end(); it!= end; ++it)
     {

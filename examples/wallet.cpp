@@ -8,8 +8,9 @@ using namespace Ethereum::Connector;
 
 int main()
 {
-    DefaultGethPath path;
-    Provider provider(path);
+    Provider provider;
+    provider.connect(); //using default geth path
+
     Wallet wallet(provider);
     Collection<std::string> accounts = wallet.getAccounts();
     for(Collection<std::string>::Iterator it=accounts.begin(); it!=accounts.end(); ++it)
