@@ -28,6 +28,12 @@ BigInt Wallet::getBalance(const std::string &account)
     return getBalance(account.c_str());
 }
 
+bool Wallet::unlockAccount(const char *address, const char *password, time_t time)
+{
+    Json::Value result = _provider.request("personal_unlockAccount", Arguments(address, password, time));
+    return result.asBool();
+}
+
 size_t Wallet::getGasPrice()
 {
     Json::Value result = _provider.request("eth_gasPrice");
