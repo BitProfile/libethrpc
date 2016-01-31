@@ -25,7 +25,7 @@ class Transaction
         uint64_t getGasPrice() const;
         
         size_t getBlockNumber() const;
-        size_t getTransactionIndex() const;
+        size_t getIndex() const;
         std::string getBlockHash() const;
 
         std::string getInput() const;

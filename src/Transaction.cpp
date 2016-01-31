@@ -48,7 +48,7 @@ size_t Transaction::getBlockNumber() const
     return unhex<uint64_t>(_data["blockNumber"].asCString());
 }
 
-size_t Transaction::getTransactionIndex() const
+size_t Transaction::getIndex() const
 {
     return unhex<uint64_t>(_data["transactionIndex"].asCString());
 }
