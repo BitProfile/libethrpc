@@ -13,7 +13,8 @@ class Provider
         Provider(const char *uri);
         Provider(const Path &);
         Provider();
-        
+
+        bool connect();
         bool connect(const char *uri);
         
         void setRetryLimit(size_t );

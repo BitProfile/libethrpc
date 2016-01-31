@@ -40,6 +40,11 @@ void Provider::setRetryLimit(size_t retryLimit)
     _retryLimit = retryLimit;
 }
 
+bool Provider::connect()
+{
+    DefaultGethPath path;
+    return connect(path.toCString());
+}
 
 bool Provider::connect(const char *uri)
 {
