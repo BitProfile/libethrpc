@@ -4,7 +4,8 @@
 namespace Ethereum{namespace Connector{
 
 BlockChain::BlockChain(Provider &provider) :
-    _provider(provider)
+    _provider(provider),
+    _fetchBlockDetails(false)
 {}
 
 bool BlockChain::isSyncing()
@@ -23,23 +24,23 @@ size_t BlockChain::getHeight()
     return unhex<uint64_t>(result.asCString());
 }
 
-Block BlockChain::getBlock(size_t number)
+Block BlockChain::getBlock(int number)
 {
-    return Block(_provider.request("eth_getBlockByNumber", Arguments(hex(number), false)));
+    return Block(_provider.request("eth_getBlockByNumber", Arguments(hex(number), _fetchBlockDetails)));
 }
 
 
 Block BlockChain::getBlock(const char *hash)
 {
-    return Block(_provider.request("eth_getBlockByHash", Arguments(hash, false)));
+    return Block(_provider.request("eth_getBlockByHash", Arguments(hash, _fetchBlockDetails)));
 }
 
-Block BlockChain::getUncle(const char *blockHash, size_t index)
+Block BlockChain::getUncle(const char *blockHash, int index)
 {
     return Block(_provider.request("eth_getUncleByBlockHashAndIndex", Arguments(blockHash, hex(index))));
 }
 
-Block BlockChain::getUncle(size_t blockNumber, size_t index)
+Block BlockChain::getUncle(int blockNumber, int index)
 {
     return Block(_provider.request("eth_getUncleByBlockNumberAndIndex", Arguments(hex(blockNumber), hex(index))));
 }
@@ -90,6 +91,11 @@ size_t BlockChain::getTransactionsCount(const char *address)
     return unhex<uint64_t>(result.asCString());
 }
 
+
+void BlockChain::retrieveBlockDetails(bool enable)
+{
+    _fetchBlockDetails = enable;
+}
 
 
 

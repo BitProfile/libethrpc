@@ -18,10 +18,10 @@ class BlockChain
         bool isSyncing();
         size_t getHeight();
 
-        Block getBlock(size_t);
+        Block getBlock(int);
         Block getBlock(const char *);
-        Block getUncle(const char *, size_t);
-        Block getUncle(size_t, size_t);
+        Block getUncle(const char *, int);
+        Block getUncle(int, int);
 
         Transaction getTransaction(const char *);
         Transaction getBlockTransaction(const char *, size_t);
@@ -39,10 +39,12 @@ class BlockChain
         Collection<FilterLog> getFilterChanges(unsigned id);
         Collection<FilterLog> getFilterLogs(unsigned id);
 
+        void retrieveBlockDetails(bool);
 
 
     private:
         Provider &_provider;
+        bool _fetchBlockDetails;
 };
 
 
