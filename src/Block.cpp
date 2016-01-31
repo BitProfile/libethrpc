@@ -18,6 +18,11 @@ std::string Block::getHash() const
     return _data["hash"].asString();
 }
 
+std::string Block::getMiner() const
+{
+    return _data["miner"].asString();
+}
+
 uint64_t Block::getNonce() const
 {
     return unhex<uint64_t>(_data["nonce"].asCString());
@@ -48,14 +53,26 @@ uint64_t Block::getGasUsed() const
     return unhex<uint64_t>(_data["gasUsed"].asCString());
 }
 
-Collection<std::string> Block::getTransactions() const
+Collection<Transaction> Block::getTransactions() const
+{
+    return Collection<Transaction>(_data["transactions"]);
+}
+
+Collection<Block> Block::getUncles() const
+{
+    return Collection<Block>(_data["uncles"]);
+}
+
+
+Collection<std::string> Block::getTransactionsHashes() const
 {
     return Collection<std::string>(_data["transactions"]);
 }
 
-Collection<std::string> Block::getUncles() const
+Collection<std::string> Block::getUnclesHashes() const
 {
     return Collection<std::string>(_data["uncles"]);
 }
+
 
 }}
