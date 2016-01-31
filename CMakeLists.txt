@@ -6,11 +6,15 @@ cmake_minimum_required(VERSION 3.2)
 
 set (Eth_Connector_VERSION_MAJOR 1)
 set (Eth_Connector_VERSION_MINOR 0)
+set (Eth_Connector_VERSION_PATCH 0)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 
 find_package(Jsoncpp REQUIRED)
 find_package(Boost COMPONENTS system REQUIRED)
+
+#add_definitions(-D__DEBUG__)
+
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${JSONCPP_INCLUDE_DIR}/jsoncpp)
@@ -59,5 +63,22 @@ foreach(EXAMPLE ${EXAMPLES})
     )
 endforeach(EXAMPLE)
 
+
+
 install(DIRECTORY ${PROJECT_BINARY_DIR}/include/eth-connector DESTINATION include)
 install (TARGETS eth-connector ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
+
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  MESSAGE(Status Linux OS detected)
+  set(PKGCONFIG_DIR lib/pkgconfig)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+  MESSAGE(Status FreeBSD OS detected)
+  set(PKGCONFIG_DIR libdata/pkgconfig)
+endif()
+
+if( DEFINED PKGCONFIG_DIR)
+  MESSAGE("PKG CONFIG FOUND")
+  CONFIGURE_FILE("cmake/pkg-config.cmake" "eth-connector.pc" @ONLY)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/eth-connector.pc" DESTINATION "${CMAKE_INSTALL_PREFIX}/${PKGCONFIG_DIR}")
+endif()
