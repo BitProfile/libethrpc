@@ -17,14 +17,14 @@ find_package(Boost COMPONENTS system REQUIRED)
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-include_directories(${JSONCPP_INCLUDE_DIR}/jsoncpp)
+include_directories(${JSONCPP_INCLUDE_DIR})
 
 file(GLOB SOURCES 
     "src/*.cpp"
     "src/transport/*.cpp"
 )
 
-file(GLOB_RECURSE HEADERS RELATIVE ${CMAKE_SOURCE_DIR}/src
+file(GLOB_RECURSE HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/src
     "src/*.hpp"
     "src/*.ipp"
 )
@@ -37,17 +37,17 @@ file(GLOB EXAMPLES
 
 
 configure_file (
-  "${PROJECT_SOURCE_DIR}/src/Config.hpp.in"
-  "${PROJECT_BINARY_DIR}/include/ethrpc/Config.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/Config.hpp.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/ethrpc/Config.hpp"
 )
 
 
 foreach(HEADER ${HEADERS})
-    set(HEADER_PATH ${CMAKE_SOURCE_DIR}/src/${HEADER})
-    configure_file(${HEADER_PATH} ${PROJECT_BINARY_DIR}/include/ethrpc/${HEADER} @ONLY)
+    set(HEADER_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/${HEADER})
+    configure_file(${HEADER_PATH} ${CMAKE_CURRENT_BINARY_DIR}/include/ethrpc/${HEADER} @ONLY)
 endforeach(HEADER)
 
-add_library(ethrpc SHARED ${SOURCES})
+add_library(ethrpc STATIC ${SOURCES})
 
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/examples)
