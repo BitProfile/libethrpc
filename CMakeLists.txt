@@ -1,7 +1,8 @@
 
 project(ethrpc)
 
-set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 cmake_minimum_required(VERSION 3.2)
 
 set (Eth_Connector_VERSION_MAJOR 1)
@@ -11,9 +12,12 @@ set (Eth_Connector_VERSION_PATCH 0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 
 find_package(Jsoncpp REQUIRED)
-find_package(Boost COMPONENTS system REQUIRED)
+find_package(Boost COMPONENTS system thread REQUIRED)
 
-#add_definitions(-D__DEBUG__)
+set(CMAKE_THREAD_PREFER_PTHREAD ON)
+find_package(Threads REQUIRED)
+
+add_definitions(-D__DEBUG__)
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -60,6 +64,8 @@ foreach(EXAMPLE ${EXAMPLES})
         ethrpc
         ${Boost_SYSTEM_LIBRARY}
         ${JSONCPP_LIBRARY}
+        ${Boost_THREAD_LIBRARY}
+        ${CMAKE_THREAD_LIBS_INIT}
     )
 endforeach(EXAMPLE)
 

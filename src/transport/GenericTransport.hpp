@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/asio.hpp>
+#include <boost/thread/mutex.hpp>
 #include <json/value.h>
 
 #include "RequestEncoder.hpp"
@@ -19,11 +20,6 @@ class GenericTransport
         GenericTransport();
         GenericTransport(const char *);
 
-        bool read(Json::Value &);
-        Json::Value read();
-        
-        bool write(const Json::Value &);
-
         Json::Value request(Json::Value &);
         bool request(Json::Value &, Json::Value &);
 
@@ -41,12 +37,19 @@ class GenericTransport
 
         bool connect(const char *);
 
+    private:
+        bool read(Json::Value &);
+        Json::Value read();
+        
+        bool write(const Json::Value &);
+
     protected:
         boost::asio::io_service _service;
         Socket _socket;
         JsonReader _reader;
         JsonWriter _writer;
         Connector _connector;
+        boost::mutex _mutex;
 };
 
 

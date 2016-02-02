@@ -24,6 +24,7 @@ GenericTransport<Socket, Connector>::GenericTransport(const char *uri):
 template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::connect(const char *uri)
 {
+    boost::mutex::scoped_lock lock(_mutex);
     return _connector.connect(_socket, uri);
 }
 
@@ -62,6 +63,7 @@ Json::Value GenericTransport<Socket, Connector>::request(Json::Value &msg)
 template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value &response)
 {
+    boost::mutex::scoped_lock lock(_mutex);
 
     unsigned id = (unsigned)time(NULL);
     msg["id"] = Json::Value(id);
