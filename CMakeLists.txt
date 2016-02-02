@@ -1,8 +1,8 @@
 
 project(ethrpc)
 
-#set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
+#set(CMAKE_BUILD_TYPE Debug)
 cmake_minimum_required(VERSION 3.2)
 
 set (Eth_Connector_VERSION_MAJOR 1)
@@ -17,7 +17,7 @@ find_package(Boost COMPONENTS system thread REQUIRED)
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads REQUIRED)
 
-add_definitions(-D__DEBUG__)
+#add_definitions(-D__DEBUG__)
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
