@@ -25,6 +25,7 @@ class Wallet
         size_t getGasPrice();
 
         bool unlockAccount(const char *address, const char *password, time_t time=1);
+        bool unlockAccount(const std::string &, const std::string &, time_t time=1);
 
         std::string sendTransaction(const char *from, const char *to, BigInt amount, size_t nonce=0);
         std::string sendTransaction(const char *from, const char *to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce=0);

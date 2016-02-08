@@ -34,6 +34,11 @@ bool Wallet::unlockAccount(const char *address, const char *password, time_t tim
     return result.asBool();
 }
 
+bool Wallet::unlockAccount(const std::string &address, const std::string &password, time_t time)
+{
+    return unlockAccount(address.c_str(), password.c_str(), time);
+}
+
 size_t Wallet::getGasPrice()
 {
     Json::Value result = _provider.request("eth_gasPrice");
