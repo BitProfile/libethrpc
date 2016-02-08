@@ -10,6 +10,8 @@ namespace Ethereum{namespace Connector{
 
 class BlockChain
 {
+    public:
+        typedef Ethereum::Connector::Block Block;
 
     public:
 
