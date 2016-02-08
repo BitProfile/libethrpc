@@ -45,45 +45,67 @@ size_t Wallet::getGasPrice()
     return unhex<uint64_t>(result.asCString());
 }
 
-std::string Wallet::sendTransaction(const char *from, const char *to, BigInt amount, size_t nonce)
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, size_t nonce)
 {
 
     return sendTransactionRequest("eth_SendTransaction", buildTransactionRequest(from, to, amount, nonce));
 }
 
-std::string Wallet::sendTransaction(const char *from, const char *to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_sendTransaction", buildTransactionRequest(from, to, amount, gasPrice, gas, nonce));
 }
 
-std::string Wallet::sendTransaction(const char *from, const char *to, BigInt amount, const char *data, size_t nonce)
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, const BigInt &gas, size_t nonce)
+{
+    return sendTransactionRequest("eth_sendTransaction", buildTransactionRequest(from, to, amount, gas, nonce));
+}
+
+
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, const char *data, size_t nonce)
 {
     return sendTransactionRequest("eth_sendTransaction", buildTransactionRequest(from, to, amount, data, nonce));
 }
 
-std::string Wallet::sendTransaction(const char *from, const char *to, BigInt amount, const char *data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_sendTransaction", buildTransactionRequest(from, to, amount, data, gasPrice, gas, nonce));
 }
 
-std::string Wallet::sendTransaction(const std::string &from, const std::string &to, BigInt amount, size_t nonce)
+std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gas, size_t nonce)
+{
+    return sendTransactionRequest("eth_sendTransaction", buildTransactionRequest(from, to, amount, data, gas, nonce));
+}
+
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, size_t nonce)
 {
     return sendTransaction(from.c_str(), to.c_str(), amount, nonce);
 }
 
-std::string Wallet::sendTransaction(const std::string &from, const std::string &to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransaction(from.c_str(), to.c_str(), amount, gasPrice, gas, nonce);
 }
 
-std::string Wallet::sendTransaction(const std::string &from, const std::string &to, BigInt amount, const std::string &data, size_t nonce)
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, const BigInt &gas, size_t nonce)
+{
+    return sendTransaction(from.c_str(), to.c_str(), amount, gas, nonce);
+}
+
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, size_t nonce)
 {
     return sendTransaction(from.c_str(), to.c_str(), amount, data);
 }
 
-std::string Wallet::sendTransaction(const std::string &from, const std::string &to, BigInt amount, const std::string &data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransaction(from.c_str(), to.c_str(), amount, data, gasPrice, gas, nonce);
+}
+
+
+std::string Wallet::sendTransaction(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gas, size_t nonce)
+{
+    return sendTransaction(from.c_str(), to.c_str(), amount, data, gas, nonce);
 }
 
 
@@ -98,82 +120,82 @@ std::string Wallet::sendRawTransaction(const std::string &transaction)
     return sendRawTransaction(transaction.c_str());
 }
 
-std::string Wallet::call(const char *from, const char *to, BigInt amount, size_t nonce)
+std::string Wallet::call(const char *from, const char *to, const BigInt &amount, size_t nonce)
 {
     return sendTransactionRequest("eth_call", buildTransactionRequest(from, to, amount, nonce));
 }
 
-std::string Wallet::call(const char *from, const char *to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::call(const char *from, const char *to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_call", buildTransactionRequest(from, to, amount, gasPrice, gas, nonce));
 }
 
-std::string Wallet::call(const char *from, const char *to, BigInt amount, const char *data, size_t nonce)
+std::string Wallet::call(const char *from, const char *to, const BigInt &amount, const char *data, size_t nonce)
 {
     return sendTransactionRequest("eth_call", buildTransactionRequest(from, to, amount, data, nonce));
 }
 
-std::string Wallet::call(const char *from, const char *to, BigInt amount, const char *data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::call(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_call", buildTransactionRequest(from, to, amount, data, gasPrice, gas, nonce));
 }
 
-std::string Wallet::call(const std::string &from, const std::string &to, BigInt amount, size_t nonce)
+std::string Wallet::call(const std::string &from, const std::string &to, const BigInt &amount, size_t nonce)
 {
     return call(from.c_str(), to.c_str(), amount, nonce);
 }
 
-std::string Wallet::call(const std::string &from, const std::string &to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::call(const std::string &from, const std::string &to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return call(from.c_str(), to.c_str(), amount, gasPrice, gas, nonce);
 }
 
-std::string Wallet::call(const std::string &from, const std::string &to, BigInt amount, const std::string &data, size_t nonce)
+std::string Wallet::call(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, size_t nonce)
 {
     return call(from.c_str(), to.c_str(), amount, data.c_str(), nonce);
 }
 
-std::string Wallet::call(const std::string &from, const std::string &to, BigInt amount, const std::string &data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::call(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return call(from.c_str(), to.c_str(), amount, data.c_str(), gasPrice, gas, nonce);
 }
 
-std::string Wallet::estimateGas(const char *from, const char *to, BigInt amount, size_t nonce)
+std::string Wallet::estimateGas(const char *from, const char *to, const BigInt &amount, size_t nonce)
 {
     return sendTransactionRequest("eth_estimateGas", buildTransactionRequest(from, to, amount, nonce));
 }
 
-std::string Wallet::estimateGas(const char *from, const char *to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::estimateGas(const char *from, const char *to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_estimateGas", buildTransactionRequest(from, to, amount, gasPrice, gas, nonce));
 }
 
-std::string Wallet::estimateGas(const char *from, const char *to, BigInt amount, const char *data, size_t nonce)
+std::string Wallet::estimateGas(const char *from, const char *to, const BigInt &amount, const char *data, size_t nonce)
 {
     return sendTransactionRequest("eth_estimateGas", buildTransactionRequest(from, to, amount, data, nonce));
 }
 
-std::string Wallet::estimateGas(const char *from, const char *to, BigInt amount, const char *data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::estimateGas(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return sendTransactionRequest("eth_estimateGas", buildTransactionRequest(from, to, amount, data, gasPrice, gas, nonce));
 }
 
-std::string Wallet::estimateGas(const std::string &from, const std::string &to, BigInt amount, size_t nonce)
+std::string Wallet::estimateGas(const std::string &from, const std::string &to, const BigInt &amount, size_t nonce)
 {
     return estimateGas(from.c_str(), to.c_str(), amount, nonce);
 }
 
-std::string Wallet::estimateGas(const std::string &from, const std::string &to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::estimateGas(const std::string &from, const std::string &to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return estimateGas(from.c_str(), to.c_str(), amount, gasPrice, gas, nonce);
 }
 
-std::string Wallet::estimateGas(const std::string &from, const std::string &to, BigInt amount, const std::string &data, size_t nonce)
+std::string Wallet::estimateGas(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, size_t nonce)
 {
     return estimateGas(from.c_str(), to.c_str(), amount, data.c_str(), nonce);
 }
 
-std::string Wallet::estimateGas(const std::string &from, const std::string &to, BigInt amount, const std::string &data, BigInt gasPrice, BigInt gas, size_t nonce)
+std::string Wallet::estimateGas(const std::string &from, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     return estimateGas(from.c_str(), to.c_str(), amount, data.c_str(), gasPrice, gas, nonce);
 }
@@ -196,7 +218,7 @@ inline std::string Wallet::sendTransactionRequest(const char *type, const Json::
 }
 
 
-inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, BigInt amount, size_t nonce)
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, size_t nonce)
 {
     Json::Value request;
     request["from"] = from;
@@ -209,7 +231,7 @@ inline Json::Value Wallet::buildTransactionRequest(const char *from, const char 
     return request;
 }
 
-inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, BigInt amount, BigInt gasPrice, BigInt gas, size_t nonce)
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     Json::Value request;
     request["from"] = from;
@@ -224,7 +246,21 @@ inline Json::Value Wallet::buildTransactionRequest(const char *from, const char 
     return request;
 }
 
-inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, BigInt amount, const char *data, size_t nonce)
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, const BigInt &gas, size_t nonce)
+{
+    Json::Value request;
+    request["from"] = from;
+    request["to"] = to;
+    request["value"] = hex(amount);
+    request["gas"] = hex(gas);
+    if(nonce)
+    {
+        request["nonce"] = hex(nonce);
+    }
+    return request;
+}
+
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, const char *data, size_t nonce)
 {
     Json::Value request;
     request["from"] = from;
@@ -238,7 +274,7 @@ inline Json::Value Wallet::buildTransactionRequest(const char *from, const char 
     return request;
 }
 
-inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, BigInt amount, const char *data, BigInt gasPrice, BigInt gas, size_t nonce)
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gasPrice, const BigInt &gas, size_t nonce)
 {
     Json::Value request;
     request["from"] = from;
@@ -254,5 +290,19 @@ inline Json::Value Wallet::buildTransactionRequest(const char *from, const char 
     return request;
 }
 
+inline Json::Value Wallet::buildTransactionRequest(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gas, size_t nonce)
+{
+    Json::Value request;
+    request["from"] = from;
+    request["to"] = to;
+    request["value"] = hex(amount);
+    request["data"] = data;
+    request["gas"] = hex(gas);
+    if(nonce)
+    {
+        request["nonce"] = hex(nonce);
+    }
+    return request;
+}
 
 }}
