@@ -17,35 +17,49 @@ const char *Path::toCString() const
 }
 
 
+std::string DefaultGethPath::RootDirectory()
+{
+    std::string path;
+#if  defined(__APPLE__)
+    path += getenv("HOME");
+    path += "/Library/Ethereum/";
+#elif defined(__linux__)
+    path += getenv("HOME");
+    path += "/.ethereum/";
+#elif defined(__MINGW32__)
+    path += getenv("HOMEPATH");
+    path += "\\AppData\\Roaming\\Ethereum\\";
+#endif
+    return path;
+}
+
 DefaultGethPath::DefaultGethPath()
 {
     _path = "ipc:";
+    _path += RootDirectory();
+    _path += "geth.ipc";
+}
+
+std::string DefaultEthPath::RootDirectory()
+{
+    std::string path;
 #if  defined(__APPLE__)
-    _path += getenv("HOME");
-    _path += "/Library/Ethereum/";
+    path += getenv("HOME");
+    path += "/.ethereum/";
 #elif defined(__linux__)
-    _path += getenv("HOME");
-    _path += "/.ethereum/";
+    path += getenv("HOME");
+    path += "/.ethereum/";
 #elif defined(__MINGW32__)
-    _path += getenv("HOMEPATH");
-    _path += "\\AppData\\Roaming\\Ethereum\\";
+    path += getenv("HOMEPATH");
+    path += "\\AppData\\Roaming\\Ethereum\\";
 #endif
-    _path+="geth.ipc";
+    return path;
 }
 
 DefaultEthPath::DefaultEthPath()
 {
     _path = "ipc:";
-#if  defined(__APPLE__)
-    _path += getenv("HOME");
-    _path += "/.ethereum/";
-#elif defined(__linux__)
-    _path += getenv("HOME");
-    _path += "/.ethereum/";
-#elif defined(__MINGW32__)
-    _path += getenv("HOMEPATH");
-    _path += "\\AppData\\Roaming\\Ethereum\\";
-#endif
+    _path += RootDirectory();
     _path += "eth.ipc";
 }
 
