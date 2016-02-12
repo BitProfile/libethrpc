@@ -21,7 +21,7 @@ int main()
     for(int i=height; i>=0; i--)
     {
         size_t totalTransactions = blockchain.getBlockTransactionsCount(i);
-        for(int j=0; j<totalTransactions; j++)
+        for(size_t j=0; j<totalTransactions; j++)
         {
             Transaction transaction = blockchain.getBlockTransaction(i, j);
             std::string sender = transaction.getSender();
