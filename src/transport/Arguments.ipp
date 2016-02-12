@@ -81,12 +81,12 @@ inline size_t Arguments::size() const
 
 inline Arguments::Iterator Arguments::begin() 
 {
-    _value.begin();
+    return _value.begin();
 }
 
 inline Arguments::Iterator Arguments::end()
 {
-    _value.end();
+    return _value.end();
 }
 
 inline Arguments::ConstIterator Arguments::begin() const
