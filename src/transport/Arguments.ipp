@@ -47,20 +47,36 @@ Arguments::Arguments(const T1 &a, const T2 &b, const T3 &c, const T4 &d, const T
 }
 
 
-template<class T>
-void Arguments::add(const T &a)
+inline void Arguments::add(const Json::Value &a)
+{
+    _value.append(a);
+}
+
+inline void Arguments::add(const char *a)
 {
     _value.append(Json::Value(a));
 }
 
-inline void Arguments::add(uint64_t a)
+inline void Arguments::add(const std::string &a)
 {
-    _value.append((Json::UInt64)a);
+    _value.append(Json::Value(a));
 }
 
+
+#if __HAS_INT64__
 inline void Arguments::add(int64_t a)
 {
     _value.append((Json::Int64)a);
+}
+#endif
+
+inline void Arguments::add(size_t a)
+{
+#if __HAS_INT64__
+    _value.append((Json::UInt64)a);
+#else
+    _value.append((Json::UInt)a);
+#endif
 }
 
 inline void Arguments::add(uint32_t a)

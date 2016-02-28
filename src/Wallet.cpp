@@ -30,7 +30,7 @@ BigInt Wallet::getBalance(const std::string &account)
 
 bool Wallet::unlockAccount(const char *address, const char *password, time_t time)
 {
-    Json::Value result = _provider.request("personal_unlockAccount", Arguments(address, password, time));
+    Json::Value result = _provider.request("personal_unlockAccount", Arguments(address, password, (size_t)time));
     return result.asBool();
 }
 
@@ -39,10 +39,10 @@ bool Wallet::unlockAccount(const std::string &address, const std::string &passwo
     return unlockAccount(address.c_str(), password.c_str(), time);
 }
 
-size_t Wallet::getGasPrice()
+BigInt Wallet::getGasPrice()
 {
     Json::Value result = _provider.request("eth_gasPrice");
-    return unhex<uint64_t>(result.asCString());
+    return unhex<BigInt>(result.asCString());
 }
 
 std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, size_t nonce)

@@ -4,10 +4,10 @@
 #include <iostream>
 #include <sstream>
 
-#include <stdint.h>
 #include <stdlib.h>
 
 #include "BigInt.hpp"
+#include "types.hpp"
 
 namespace Ethereum{namespace Connector{
 
@@ -22,8 +22,11 @@ T unhex(const char *);
 template<>
 uint32_t unhex<uint32_t>(const char *);
 
+#if __HAS_INT64__
 template<>
 uint64_t unhex<uint64_t>(const char *);
+#endif
+
 
 template<>
 BigInt unhex<BigInt>(const char *);

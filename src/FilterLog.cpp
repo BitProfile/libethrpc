@@ -25,14 +25,14 @@ std::string FilterLog::getBlockHash() const
     return _data["blockHash"].asString();
 }
 
-uint64_t FilterLog::getTransactionIndex() const
+size_t FilterLog::getTransactionIndex() const
 {
-    return strtoull(_data["transactionIndex"].asCString(), NULL, 16);
+    return unhex<size_t>(_data["transactionIndex"].asCString());
 }
 
-uint64_t FilterLog::getBlockIndex() const
+size_t FilterLog::getBlockIndex() const
 {
-    return strtoull(_data["blockNumber"].asCString(), NULL, 16);
+    return unhex<size_t>(_data["blockNumber"].asCString());
 }
 
 

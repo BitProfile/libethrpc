@@ -30,11 +30,15 @@ class Arguments
         template<class T1, class T2, class T3, class T4, class T5>
         Arguments(const T1&, const T2&, const T3&, const T4&, const T5&);
 
-        template<class T>
-        void add(const T &);
+        void add(const Json::Value &);
+        void add(const char *);
+        void add(const std::string &);
 
-        void add(uint64_t);
+#if __HAS_INT64__
         void add(int64_t);
+#endif
+
+        void add(size_t);
         void add(uint32_t);
         void add(int32_t);
 

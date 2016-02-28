@@ -2,7 +2,8 @@
 
 
 #include <json/value.h>
-#include <stdint.h>
+
+#include "types.hpp"
 
 namespace Ethereum{namespace Connector{
 
@@ -23,13 +24,14 @@ class Decoder<std::string>
 };
 
 
-
+#if __HAS_INT64__
 template<>
 class Decoder<uint64_t>
 {
     public:
         uint64_t decode(const Json::Value &) const;
 };
+#endif
 
 
 template<>

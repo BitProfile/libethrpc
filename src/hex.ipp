@@ -16,12 +16,14 @@ inline uint32_t unhex<uint32_t>(const char *value)
 }
 
 
+#if __HAS_INT64__
 template<>
 inline uint64_t unhex<uint64_t>(const char *value)
 {
     uint64_t result = strtoull(value, NULL, 16);
     return result;
 }
+#endif
 
 
 template<typename T>

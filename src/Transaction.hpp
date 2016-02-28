@@ -2,10 +2,9 @@
 
 #include <json/value.h>
 #include <string>
-#include <stdint.h>
 
+#include "types.hpp"
 #include "BigInt.hpp"
-
 #include "hex.hpp"
 
 
@@ -21,8 +20,8 @@ class Transaction
         std::string getSender() const;
         std::string getReceiver() const;
         size_t getNonce() const;
-        uint64_t getGas() const;
-        uint64_t getGasPrice() const;
+        BigInt getGas() const;
+        BigInt getGasPrice() const;
         
         size_t getBlockNumber() const;
         size_t getIndex() const;

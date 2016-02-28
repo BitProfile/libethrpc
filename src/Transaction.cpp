@@ -30,27 +30,27 @@ std::string Transaction::getReceiver() const
 
 size_t Transaction::getNonce() const
 {
-    return unhex<uint64_t>(_data["nonce"].asCString());
+    return unhex<size_t>(_data["nonce"].asCString());
 }
 
-uint64_t Transaction::getGas() const
+BigInt Transaction::getGas() const
 {
-    return unhex<uint64_t>(_data["gas"].asCString());
+    return unhex<BigInt>(_data["gas"].asCString());
 }
 
-uint64_t Transaction::getGasPrice() const
+BigInt Transaction::getGasPrice() const
 {
-    return unhex<uint64_t>(_data["gasPrice"].asCString());
+    return unhex<BigInt>(_data["gasPrice"].asCString());
 }
 
 size_t Transaction::getBlockNumber() const
 {
-    return unhex<uint64_t>(_data["blockNumber"].asCString());
+    return unhex<size_t>(_data["blockNumber"].asCString());
 }
 
 size_t Transaction::getIndex() const
 {
-    return unhex<uint64_t>(_data["transactionIndex"].asCString());
+    return unhex<size_t>(_data["transactionIndex"].asCString());
 }
 
 std::string Transaction::getBlockHash() const

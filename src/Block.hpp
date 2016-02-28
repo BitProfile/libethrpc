@@ -15,16 +15,16 @@ class Block
     public:
         Block(const Json::Value &data);
 
-        unsigned getIndex() const;
+        size_t getIndex() const;
         std::string getHash() const;
         std::string getMiner() const;
-        uint64_t getNonce() const;
-        uint64_t getDifficulty() const;
+        size_t getNonce() const;
+        size_t getDifficulty() const;
         size_t getSize() const;
         time_t getTimestamp() const;
 
-        uint64_t getGasLimit() const;
-        uint64_t getGasUsed() const;
+        size_t getGasLimit() const;
+        size_t getGasUsed() const;
 
         Collection<std::string> getTransactionsHashes() const;
         Collection<Transaction> getTransactions() const;

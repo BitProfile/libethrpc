@@ -1,8 +1,9 @@
 #pragma once
 
 #include <json/value.h>
-#include <stdint.h>
 #include <cstdlib>
+
+#include "hex.hpp"
 
 namespace Ethereum{namespace Connector{
 
@@ -12,11 +13,11 @@ class FilterLog
 
         FilterLog(const Json::Value &data);
         std::string getType() const;
-        uint64_t getTransactionIndex() const;
+        size_t getTransactionIndex() const;
         std::string getTransactionHash() const;
         std::string getAddress() const;
         std::string getBlockHash() const;
-        uint64_t getBlockIndex() const;
+        size_t getBlockIndex() const;
 
     private:
         Json::Value _data;

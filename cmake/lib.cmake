@@ -11,7 +11,21 @@ file(GLOB SOURCES
     "src/transport/*.cpp"
 )
 
+include(CheckTypeSize) 
+
+check_type_size("int64_t" INT64_T)
+
+if(NOT INT64_T)
+    check_type_size("__int64_t" INT64_T BUILTIN_TYPES_ONLY)
+endif()
+
+if(INT64_T)
+    message("has int 64")
+    add_definitions(-D__HAS_INT64__)
+endif()
+
 CopyHeaders()
+
 
 add_library(ethrpc STATIC ${SOURCES})
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <json/value.h>
-#include <stdint.h>
 
+#include "types.hpp"
 #include "Arguments.hpp"
 
 namespace Ethereum{namespace Connector{

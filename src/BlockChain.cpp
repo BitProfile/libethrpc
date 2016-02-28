@@ -21,7 +21,7 @@ bool BlockChain::isSyncing()
 size_t BlockChain::getHeight()
 {
     Json::Value result = _provider.request("eth_blockNumber");
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 Block BlockChain::getBlock(int number)
@@ -63,32 +63,32 @@ Transaction BlockChain::getBlockTransaction(size_t blockNumber, size_t index)
 size_t BlockChain::getBlockTransactionsCount(size_t blockNumber)
 {
     Json::Value result = _provider.request("eth_getBlockTransactionCountByNumber", Arguments(hex(blockNumber)));
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 size_t BlockChain::getBlockTransactionsCount(const char *hash)
 {
     Json::Value result = _provider.request("eth_getBlockTransactionCountByHash", Arguments(hash));
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 size_t BlockChain::getBlockUnclesCount(size_t blockNumber)
 {
     Json::Value result = _provider.request("eth_getUncleCountByBlockNumber", Arguments(hex(blockNumber)));
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 size_t BlockChain::getBlockUnclesCount(const char *hash)
 {
     Json::Value result = _provider.request("eth_getUncleCountByBlockHash", Arguments(hash));
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 
 size_t BlockChain::getTransactionsCount(const char *address)
 {
     Json::Value result = _provider.request("eth_getTransactionCount", Arguments(address));
-    return unhex<uint64_t>(result.asCString());
+    return unhex<size_t>(result.asCString());
 }
 
 

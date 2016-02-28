@@ -2,7 +2,6 @@
 
 #include <json/value.h>
 #include <string>
-#include <stdint.h>
 
 #include "BigInt.hpp"
 #include "Provider.hpp"
@@ -22,7 +21,7 @@ class Wallet
         BigInt getBalance(const char *account);
         BigInt getBalance(const std::string &);
 
-        size_t getGasPrice();
+        BigInt getGasPrice();
 
         bool unlockAccount(const char *address, const char *password, time_t time=1);
         bool unlockAccount(const std::string &, const std::string &, time_t time=1);
