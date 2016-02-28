@@ -35,11 +35,12 @@ class Arguments
         void add(const std::string &);
 
 #if __HAS_INT64__
+        void add(uint64_t);
         void add(int64_t);
-#endif
-
-        void add(size_t);
         void add(uint32_t);
+#else
+        void add(size_t);
+#endif
         void add(int32_t);
 
         size_t size() const;

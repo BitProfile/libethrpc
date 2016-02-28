@@ -64,25 +64,31 @@ inline void Arguments::add(const std::string &a)
 
 
 #if __HAS_INT64__
+
+inline void Arguments::add(uint64_t a)
+{
+    _value.append((Json::UInt64)a);
+}
+
 inline void Arguments::add(int64_t a)
 {
     _value.append((Json::Int64)a);
-}
-#endif
-
-inline void Arguments::add(size_t a)
-{
-#if __HAS_INT64__
-    _value.append((Json::UInt64)a);
-#else
-    _value.append((Json::UInt)a);
-#endif
 }
 
 inline void Arguments::add(uint32_t a)
 {
     _value.append((Json::UInt)a);
 }
+#else
+
+inline void Arguments::add(size_t a)
+{
+    _value.append((Json::UInt)a);
+}
+
+#endif
+
+
 
 inline void Arguments::add(int32_t a)
 {
