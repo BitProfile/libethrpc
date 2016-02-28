@@ -3,7 +3,7 @@ find_package(Boost COMPONENTS system thread REQUIRED)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/CopyHeaders.cmake)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${JSONCPP_INCLUDE_DIR})
 
 file(GLOB SOURCES 
