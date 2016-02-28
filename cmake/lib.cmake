@@ -13,14 +13,13 @@ file(GLOB SOURCES
 
 include(CheckTypeSize) 
 
-check_type_size("int64_t" INT64_T)
+check_type_size("int64_t" SIZEOF_INT64_T)
 
-if(NOT INT64_T)
-    check_type_size("__int64_t" INT64_T BUILTIN_TYPES_ONLY)
+if(NOT SIZEOF_INT64_T)
+    check_type_size("__int64_t" SIZEOF_INT64_T BUILTIN_TYPES_ONLY)
 endif()
 
-if(INT64_T)
-    message("has int 64")
+if(SIZEOF_INT64_T EQUAL 8)
     add_definitions(-D__HAS_INT64__)
 endif()
 
