@@ -6,7 +6,7 @@ namespace Ethereum{namespace Connector{
 
 Provider::Provider(const char *uri): 
     _retryLimit(1),
-    _retryInterval(1)
+    _retryInterval(1000)
 {
     if(!connect(uri))
     {
@@ -16,7 +16,7 @@ Provider::Provider(const char *uri):
 
 Provider::Provider(const Path &path): 
     _retryLimit(1),
-    _retryInterval(1)
+    _retryInterval(1000)
 {
     if(!connect(path.toCString()))
     {
@@ -27,7 +27,7 @@ Provider::Provider(const Path &path):
 
 Provider::Provider() : 
     _retryLimit(1),
-    _retryInterval(1)
+    _retryInterval(1000)
 {}
 
 void Provider::setRetryInterval(size_t retryInterval)
@@ -110,7 +110,7 @@ bool Provider::request(Json::Value &request, Json::Value &response)
 
             if(_retryInterval)
             {
-                sleep(_retryInterval);
+                boost::this_thread::sleep(boost::posix_time::milliseconds(_retryInterval));
             }
             
             if(_connection->connect(_uri.c_str()))

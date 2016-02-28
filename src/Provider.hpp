@@ -1,11 +1,15 @@
 #pragma once
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp> 
 
 #include "transport/IpcTransport.hpp"
 #include "transport/Arguments.hpp"
 #include "transport/Path.hpp"
 
+
 namespace Ethereum{namespace Connector{
+
 
 class Provider
 {
