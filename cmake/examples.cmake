@@ -20,4 +20,7 @@ foreach(EXAMPLE ${EXAMPLES})
         ${Boost_THREAD_LIBRARY}
         ${CMAKE_THREAD_LIBS_INIT}
     )
+    if(WIN32)
+        target_link_libraries(${EXAMPLE_NAME} ws2_32)
+    endif()
 endforeach(EXAMPLE)
