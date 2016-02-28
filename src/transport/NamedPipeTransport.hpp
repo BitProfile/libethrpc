@@ -6,9 +6,13 @@
 #include <windows.h>
 #include <stdexcept>
 
+#include "GenericTransport.hpp"
+
 namespace Ethereum{namespace Connector{
 
+
 typedef boost::asio::windows::stream_handle NamedPipeSocket;
+
 
 class NamedPipeConnector
 {
