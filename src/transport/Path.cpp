@@ -1,7 +1,6 @@
 
 #include "Path.hpp"
 
-#include<iostream>
 namespace Ethereum{namespace Connector{
 
 
