@@ -1,5 +1,5 @@
 find_package(JsonCPP REQUIRED)
-find_package(Boost COMPONENTS system thread REQUIRED)
+find_package(Boost COMPONENTS system thread date_time REQUIRED)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads REQUIRED)
@@ -10,6 +10,8 @@ file(GLOB EXAMPLES
     "examples/*.cpp"
 )
 
+include_directories(${Boost_INCLUDE_DIRS})
+
 foreach(EXAMPLE ${EXAMPLES})
     get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
     add_executable(${EXAMPLE_NAME} ${EXAMPLE})
@@ -18,6 +20,7 @@ foreach(EXAMPLE ${EXAMPLES})
         ${Boost_SYSTEM_LIBRARY}
         ${JSONCPP_LIBRARY}
         ${Boost_THREAD_LIBRARY}
+        ${Boost_DATE_TIME_LIBRARY}
         ${CMAKE_THREAD_LIBS_INIT}
     )
     if(WIN32)
