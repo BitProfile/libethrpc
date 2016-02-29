@@ -1,5 +1,5 @@
 find_package(JsonCPP REQUIRED)
-find_package(Boost COMPONENTS system thread date_time REQUIRED)
+find_package(Boost COMPONENTS system thread date_time chrono REQUIRED)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads REQUIRED)
@@ -21,6 +21,7 @@ foreach(EXAMPLE ${EXAMPLES})
         ${JSONCPP_LIBRARY}
         ${Boost_THREAD_LIBRARY}
         ${Boost_DATE_TIME_LIBRARY}
+        ${Boost_CHRONO_LIBRARY}
         ${CMAKE_THREAD_LIBS_INIT}
     )
     if(WIN32)
