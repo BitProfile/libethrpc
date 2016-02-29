@@ -1,3 +1,5 @@
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp> 
 
 #include "Provider.hpp"
 #include "BlockFilterBuilder.hpp"
@@ -16,7 +18,7 @@ int main()
 
     std::cout<<"filter id "<<filter.getId()<<"\n";
 
-    sleep(2);
+    boost::this_thread::sleep(boost::posix_time::milliseconds(2000));
     Collection<FilterLog> events = filter.getChanges();
     
     std::cout<<"events ("<<events.size()<<") : \n";
