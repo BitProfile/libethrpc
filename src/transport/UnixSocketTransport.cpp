@@ -35,6 +35,4 @@ bool UnixSocketConnector::connect(UnixSocket &socket, const char *path)
 
 
 }}
-#else
-namespace Ethereum{namespace Connector{}}
 #endif
