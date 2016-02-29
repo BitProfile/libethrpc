@@ -11,6 +11,7 @@ set (Eth_Connector_VERSION_PATCH 0)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/modules")
 
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/OSFlags.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/lib.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/examples.cmake)
 

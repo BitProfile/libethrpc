@@ -20,15 +20,17 @@ const char *Path::toCString() const
 std::string DefaultGethPath::RootDirectory()
 {
     std::string path;
-#if  defined(__APPLE__)
+#if  defined(__APPLE_OS__)
     path += getenv("HOME");
     path += "/Library/Ethereum/";
-#elif defined(__linux__)
+#elif defined(__LINUX_OS__)
     path += getenv("HOME");
     path += "/.ethereum/";
-#elif defined(__MINGW32__)
+#elif defined(__WINDOWS_OS__)
     path += getenv("HOMEPATH");
     path += "\\AppData\\Roaming\\Ethereum\\";
+#else
+    #warning "No OS detected"
 #endif
     return path;
 }
@@ -43,15 +45,17 @@ DefaultGethPath::DefaultGethPath()
 std::string DefaultEthPath::RootDirectory()
 {
     std::string path;
-#if  defined(__APPLE__)
+#if  defined(__APPLE_OS__)
     path += getenv("HOME");
     path += "/.ethereum/";
-#elif defined(__linux__)
+#elif defined(__LINUX_OS__)
     path += getenv("HOME");
     path += "/.ethereum/";
-#elif defined(__MINGW32__)
+#elif defined(__WINDOWS_OS__)
     path += getenv("HOMEPATH");
     path += "\\AppData\\Roaming\\Ethereum\\";
+#else
+    #warning "No OS detected"
 #endif
     return path;
 }

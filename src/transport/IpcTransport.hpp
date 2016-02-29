@@ -6,7 +6,7 @@
     #include "UnixSocketTransport.hpp"
     #define IPC_TRANSPORT_CLASS_NAME UnixSocketTransport
 #else
-    #if defined(__MINGW32__)
+    #if defined(__WINDOWS_OS__)
         #include "NamedPipeTransport.hpp"
         #define IPC_TRANSPORT_CLASS_NAME NamedPipeTransport
     #else
