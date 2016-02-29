@@ -37,8 +37,13 @@ std::string DefaultGethPath::RootDirectory()
 DefaultGethPath::DefaultGethPath()
 {
     _path = "ipc:";
+#if defined(__WINDOWS_OS__)
+    _path += "\\\\.\\pipe\\geth.ipc";
+#else
     _path += RootDirectory();
     _path += "geth.ipc";
+#endif
+
 }
 
 std::string DefaultEthPath::RootDirectory()
@@ -62,8 +67,12 @@ std::string DefaultEthPath::RootDirectory()
 DefaultEthPath::DefaultEthPath()
 {
     _path = "ipc:";
+#if defined(__WINDOWS_OS__)
+    _path += "\\\\.\\pipe\\eth.ipc";
+#else
     _path += RootDirectory();
     _path += "eth.ipc";
+#endif
 }
 
 
