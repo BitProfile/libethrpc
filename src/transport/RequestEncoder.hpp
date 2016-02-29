@@ -2,7 +2,7 @@
 
 #include <json/value.h>
 
-#include "types.hpp"
+#include "../types.hpp"
 #include "Arguments.hpp"
 
 namespace Ethereum{namespace Connector{
