@@ -33,6 +33,7 @@ class Arguments
         void add(const Json::Value &);
         void add(const char *);
         void add(const std::string &);
+        void add(bool);
 
 #if __HAS_INT64__
         void add(uint64_t);

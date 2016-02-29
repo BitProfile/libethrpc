@@ -62,6 +62,10 @@ inline void Arguments::add(const std::string &a)
     _value.append(Json::Value(a));
 }
 
+inline void Arguments::add(bool a)
+{
+    _value.append(Json::Value(a));
+}
 
 #if __HAS_INT64__
 
