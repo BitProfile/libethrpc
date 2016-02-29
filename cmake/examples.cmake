@@ -17,12 +17,12 @@ foreach(EXAMPLE ${EXAMPLES})
     add_executable(${EXAMPLE_NAME} ${EXAMPLE})
     target_link_libraries(${EXAMPLE_NAME} 
         ethrpc
-        ${Boost_SYSTEM_LIBRARY}
         ${JSONCPP_LIBRARY}
-        ${Boost_THREAD_LIBRARY}
         ${Boost_DATE_TIME_LIBRARY}
         ${Boost_CHRONO_LIBRARY}
         ${Boost_REGEX_LIBRARY}
+        ${Boost_SYSTEM_LIBRARY}
+        ${Boost_THREAD_LIBRARY}
         ${CMAKE_THREAD_LIBS_INIT}
     )
     if(WIN32)
