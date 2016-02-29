@@ -1,9 +1,7 @@
 #pragma once
 
-#ifdef BOOST_OS_WINDOWS
-
-#include <boost/asio.hpp>
 #include <windows.h>
+#include <boost/asio.hpp>
 #include <stdexcept>
 
 #include "GenericTransport.hpp"
@@ -26,4 +24,3 @@ typedef GenericTransport<NamedPipeSocket, NamedPipeConnector> NamedPipeTransport
 
 }}
 
-#endif

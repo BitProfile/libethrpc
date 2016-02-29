@@ -1,7 +1,6 @@
+#ifdef __WINDOWS_OS__
 
 #include "NamedPipeTransport.hpp"
-
-#ifdef BOOST_OS_WINDOWS
 
 namespace Ethereum{namespace Connector{
 
