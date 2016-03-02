@@ -13,8 +13,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/modules"
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/OSFlags.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/lib.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/examples.cmake)
 
+if(ENABLE_EXAMPLES)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/examples.cmake)
+endif()
 
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/src/Config.hpp.in"
