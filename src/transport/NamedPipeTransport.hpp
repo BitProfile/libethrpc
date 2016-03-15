@@ -3,7 +3,7 @@
 #include <boost/asio.hpp>
 #include <stdexcept>
 
-#include "GenericTransport.hpp"
+#include "detail/GenericTransport.hpp"
 
 namespace Ethereum{namespace Connector{
 
