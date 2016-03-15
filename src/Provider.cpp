@@ -1,6 +1,6 @@
 
 #include "Provider.hpp"
-#include "transport/RequestEncoder.hpp"
+
 
 namespace Ethereum{namespace Connector{
 

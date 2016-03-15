@@ -4,7 +4,8 @@
 #include "Provider.hpp"
 #include "Collection.hpp"
 #include "FilterLog.hpp"
-#include "hex.hpp"
+
+#include "detail/hex.hpp"
 
 
 namespace Ethereum{namespace Connector{

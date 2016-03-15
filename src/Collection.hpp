@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <json/value.h>
-#include "Iterator.hpp"
+#include "detail/Iterator.hpp"
 
 namespace Ethereum{namespace Connector{
 

@@ -5,7 +5,7 @@
 
 #include "Collection.hpp"
 #include "Transaction.hpp"
-#include "hex.hpp"
+#include "detail/hex.hpp"
 
 
 namespace Ethereum{namespace Connector{

@@ -2,8 +2,8 @@
 
 #include <json/value.h>
 
-#include "../types.hpp"
-#include "Arguments.hpp"
+#include "../../detail/types.hpp"
+#include "../Arguments.hpp"
 
 namespace Ethereum{namespace Connector{
 

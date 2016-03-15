@@ -7,6 +7,7 @@
 #include "transport/Arguments.hpp"
 #include "transport/Path.hpp"
 
+#include "transport/detail/RequestEncoder.hpp"
 
 namespace Ethereum{namespace Connector{
 

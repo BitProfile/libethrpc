@@ -3,7 +3,7 @@
 #include <json/value.h>
 #include <cstdlib>
 
-#include "hex.hpp"
+#include "detail/hex.hpp"
 
 namespace Ethereum{namespace Connector{
 

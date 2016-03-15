@@ -3,9 +3,11 @@
 #include <json/value.h>
 #include <string>
 
-#include "types.hpp"
 #include "BigInt.hpp"
-#include "hex.hpp"
+
+
+#include "detail/types.hpp"
+#include "detail/hex.hpp"
 
 
 namespace Ethereum{namespace Connector{
