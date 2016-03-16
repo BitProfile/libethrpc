@@ -73,7 +73,7 @@ Path Path::GethPath(Network net)
     return Path("ipc:\\\\.\\pipe\\geth.ipc");
 #else
     Path path = Path::GethRootPath(net);
-    path._path += "geth.ipc";
+    path._path += "/geth.ipc";
     path._path.insert(0, "ipc:");
     return path;
 #endif
@@ -109,7 +109,7 @@ Path Path::EthPath(Network net)
     return Path("ipc:\\\\.\\pipe\\eth.ipc");
 #else
     Path path = EthRootPath(net);
-    path._path += "eth.ipc";
+    path._path += "/eth.ipc";
     path._path.insert(0, "ipc:");
     return path;
 #endif
