@@ -1,8 +1,13 @@
 
 project(ethrpc)
 
-set(CMAKE_BUILD_TYPE Release)
-#set(CMAKE_BUILD_TYPE Debug)
+if(DEBUG)
+    set(CMAKE_BUILD_TYPE Debug)
+    add_definitions(-D__DEBUG__)
+else()
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
 cmake_minimum_required(VERSION 3.2)
 
 set (Eth_Connector_VERSION_MAJOR 1)
