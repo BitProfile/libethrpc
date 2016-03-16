@@ -19,7 +19,7 @@ std::string Wallet::getCoinBase()
 
 BigInt Wallet::getBalance(const char *account)
 {
-    Json::Value result = _provider.request("eth_getBalance", Arguments(account));
+    Json::Value result = _provider.request("eth_getBalance", Arguments(account, "latest"));
     return unhex<BigInt>(result.asCString());
 }
 
