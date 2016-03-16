@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "../BigInt.hpp"
-
+#include "hex.hpp"
 
 namespace Ethereum{namespace Connector{
 
