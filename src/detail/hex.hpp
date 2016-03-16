@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 
-#include "BigInt.hpp"
+#include "../BigInt.hpp"
 #include "types.hpp"
 
 namespace Ethereum{namespace Connector{
