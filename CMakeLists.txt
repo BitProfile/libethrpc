@@ -1,7 +1,7 @@
 
 project(ethrpc)
 
-if(DEBUG)
+if(ENABLE_DEBUG)
     set(CMAKE_BUILD_TYPE Debug)
     add_definitions(-D__DEBUG__)
 else()
