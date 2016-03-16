@@ -42,7 +42,13 @@ void Provider::setRetryLimit(size_t retryLimit)
 
 bool Provider::connect()
 {
-    DefaultGethPath path;
+    Path path = Path::GethPath();
+    return connect(path.toCString());
+}
+
+bool Provider::connect(Network net)
+{
+    Path path = Path::GethPath(net);
     return connect(path.toCString());
 }
 

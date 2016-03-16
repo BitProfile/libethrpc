@@ -14,7 +14,7 @@ int main(int argc, char **argv)
         exit(1);
     }
     Provider provider;
-    provider.connect(); //using default geth path
+    provider.connect(Test_Net); //using default geth path
 
     BlockChain blockchain(provider);
     Block block = blockchain.getBlock(atoll(argv[1]));

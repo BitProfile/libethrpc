@@ -9,7 +9,7 @@ using namespace Ethereum::Connector;
 int main()
 {
     Provider provider;
-    provider.connect();  //using default geth path
+    provider.connect(Test_Net);  //using default geth path
 
     Compiler compiler(provider);
     std::string code = compiler.compileSolidity("contract test { function multiply(uint a) returns(uint d) {   return a * 7;   } }");

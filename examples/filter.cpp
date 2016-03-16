@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     }
 
     Provider provider; 
-    provider.connect();//using default geth path
+    provider.connect(Test_Net);//using default geth path
 
     FilterBuilder builder(provider);
 

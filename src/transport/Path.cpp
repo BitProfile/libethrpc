@@ -4,6 +4,13 @@
 namespace Ethereum{namespace Connector{
 
 
+Path::Path(const char *path) :
+    _path(path)
+{}
+
+Path::Path(const std::string &path) :
+    _path(path)
+{}
 
 const std::string& Path::toString() const
 {
@@ -15,8 +22,27 @@ const char *Path::toCString() const
     return _path.c_str();
 }
 
+Path Path::GethRootPath()
+{
+    return GethRootPath(Main_Net);
+}
 
-std::string DefaultGethPath::RootDirectory()
+Path Path::GethPath()
+{
+    return GethPath(Main_Net);
+}
+
+Path Path::EthRootPath()
+{
+    return EthRootPath(Main_Net);
+}
+
+Path Path::EthPath()
+{
+    return EthPath(Main_Net);
+}
+
+Path Path::GethRootPath(Network net)
 {
     std::string path;
 #if  defined(__APPLE_OS__)
@@ -30,23 +56,30 @@ std::string DefaultGethPath::RootDirectory()
     path += "\\AppData\\Roaming\\Ethereum\\";
 #else
     #warning "No OS detected"
+    return Path(path);
 #endif
-    return path;
+
+    if(net==Test_Net)
+    {
+        path+="testnet";
+    }
+
+    return Path(path);
 }
 
-DefaultGethPath::DefaultGethPath()
+Path Path::GethPath(Network net)
 {
-    _path = "ipc:";
 #if defined(__WINDOWS_OS__)
-    _path += "\\\\.\\pipe\\geth.ipc";
+    return Path("ipc:\\\\.\\pipe\\geth.ipc");
 #else
-    _path += RootDirectory();
-    _path += "geth.ipc";
+    Path path = Path::GethRootPath(net);
+    path._path += "geth.ipc";
+    path._path.insert(0, "ipc:");
+    return path;
 #endif
-
 }
 
-std::string DefaultEthPath::RootDirectory()
+Path Path::EthRootPath(Network net)
 {
     std::string path;
 #if  defined(__APPLE_OS__)
@@ -60,18 +93,25 @@ std::string DefaultEthPath::RootDirectory()
     path += "\\AppData\\Roaming\\Ethereum\\";
 #else
     #warning "No OS detected"
+    return Path(path);
 #endif
-    return path;
+    if(net==Test_Net)
+    {
+        path+="testnet";
+    }
+
+    return Path(path);
 }
 
-DefaultEthPath::DefaultEthPath()
+Path Path::EthPath(Network net)
 {
-    _path = "ipc:";
 #if defined(__WINDOWS_OS__)
-    _path += "\\\\.\\pipe\\eth.ipc";
+    return Path("ipc:\\\\.\\pipe\\eth.ipc");
 #else
-    _path += RootDirectory();
-    _path += "eth.ipc";
+    Path path = EthRootPath(net);
+    path._path += "eth.ipc";
+    path._path.insert(0, "ipc:");
+    return path;
 #endif
 }
 

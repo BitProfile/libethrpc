@@ -9,6 +9,8 @@
 
 #include "transport/detail/RequestEncoder.hpp"
 
+#include "Network.hpp"
+
 namespace Ethereum{namespace Connector{
 
 
@@ -20,8 +22,9 @@ class Provider
         Provider();
 
         bool connect();
+        bool connect(Network);
         bool connect(const char *uri);
-        
+
         void setRetryLimit(size_t );
         void setRetryInterval(size_t);
         

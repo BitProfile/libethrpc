@@ -10,7 +10,7 @@ using namespace Ethereum::Connector;
 int main()
 {
     Provider provider;
-    provider.connect(); //using default geth path
+    provider.connect(Test_Net); //using default geth path
 
     BlockFilterBuilder builder(provider);
     Filter filter = builder.build();

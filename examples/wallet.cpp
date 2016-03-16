@@ -9,7 +9,7 @@ using namespace Ethereum::Connector;
 int main()
 {
     Provider provider;
-    provider.connect(); //using default geth path
+    provider.connect(Test_Net); //using default geth path
 
     Wallet wallet(provider);
     Collection<std::string> accounts = wallet.getAccounts();
