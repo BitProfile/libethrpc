@@ -17,16 +17,32 @@ std::string Wallet::getCoinBase()
     return result.asString();
 }
 
+BigInt Wallet::getBalance(const char *account, const char *type)
+{
+    Json::Value result = _provider.request("eth_getBalance", Arguments(account, type));
+    return unhex<BigInt>(result.asCString());
+}
+
 BigInt Wallet::getBalance(const char *account)
 {
-    Json::Value result = _provider.request("eth_getBalance", Arguments(account, "latest"));
-    return unhex<BigInt>(result.asCString());
+    return getBalance(account, "latest");
 }
 
 BigInt Wallet::getBalance(const std::string &account)
 {
     return getBalance(account.c_str());
 }
+
+BigInt Wallet::getPendingBalance(const char *account)
+{
+    return getBalance(account, "pending");
+}
+
+BigInt Wallet::getPendingBalance(const std::string &account)
+{
+    return getPendingBalance(account.c_str());
+}
+
 
 bool Wallet::unlockAccount(const char *address, const char *password, time_t time)
 {

@@ -22,9 +22,13 @@ class Wallet
         Collection<std::string> getAccounts();
         std::string getCoinBase();
 
+        BigInt getBalance(const char *account, const char *type);
+
         BigInt getBalance(const char *account);
         BigInt getBalance(const std::string &);
 
+        BigInt getPendingBalance(const char *account);
+        BigInt getPendingBalance(const std::string &);
 
         bool unlockAccount(const char *address, const char *password, time_t time=1);
         bool unlockAccount(const std::string &, const std::string &, time_t time=1);
