@@ -69,21 +69,25 @@ bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value 
     msg["id"] = Json::Value(id);
     if(!_writer.write(_socket, msg))
     {
+        LOG_DEBUG("failed to write request");
         return false;
     }
 
     if(!_reader.read(_socket, response))
     {
+        LOG_DEBUG("failed to read response");
         return false;
     }
 
     if(!response["id"]||response["id"].asUInt64()!=id)
     {
+        LOG_DEBUG("invalid response ID : "<<response["id"].asUInt64()<<", requested "<<id);
         return false;
     }
 
     if(response.isMember("error"))
     {
+        LOG_DEBUG("got rpc error "<<response["error"].asString());
         return false;
     }
 
