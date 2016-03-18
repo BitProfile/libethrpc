@@ -4,9 +4,9 @@
 
 namespace Ethereum{namespace Connector{
 
-Provider::Provider(const char *uri): 
-    _retryLimit(1),
-    _retryInterval(1000)
+Provider::Provider(const char *uri, size_t retryLimit, size_t retryInterval): 
+    _retryLimit(retryLimit),
+    _retryInterval(retryInterval)
 {
     if(!connect(uri))
     {
@@ -14,9 +14,9 @@ Provider::Provider(const char *uri):
     }
 }
 
-Provider::Provider(const Path &path): 
-    _retryLimit(1),
-    _retryInterval(1000)
+Provider::Provider(const Path &path, size_t retryLimit, size_t retryInterval): 
+    _retryLimit(retryLimit),
+    _retryInterval(retryInterval)
 {
     if(!connect(path.toCString()))
     {
@@ -25,9 +25,9 @@ Provider::Provider(const Path &path):
 }
 
 
-Provider::Provider() : 
-    _retryLimit(1),
-    _retryInterval(1000)
+Provider::Provider(size_t retryLimit, size_t retryInterval) : 
+    _retryLimit(retryLimit),
+    _retryInterval(retryInterval)
 {}
 
 void Provider::setRetryInterval(size_t retryInterval)

@@ -17,9 +17,9 @@ namespace Ethereum{namespace Connector{
 class Provider
 {
     public:
-        Provider(const char *uri);
-        Provider(const Path &);
-        Provider();
+        Provider(const char *uri, size_t retryLimit=1, size_t retryInterval=1000);
+        Provider(const Path &, size_t retryLimit=1, size_t retryInterval=1000);
+        Provider(size_t retryLimit=1, size_t retryInterval=1000);
 
         bool connect();
         bool connect(Network);
