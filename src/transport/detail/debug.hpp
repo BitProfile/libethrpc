@@ -5,7 +5,7 @@
 
 #ifdef __DEBUG__
 
-#define LOG_DEBUG(x) std::cout<<time(NULL)<<" -> "<<x<<std::endl
+#define LOG_DEBUG(x) std::cout<<clock()<<" -> "<<x<<std::endl
 
 #else
 
