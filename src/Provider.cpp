@@ -102,45 +102,61 @@ Json::Value Provider::request(const char *method, const Arguments &args)
     return result;
 }
 
+bool Provider::retryRequest(Json::Value &request, Json::Value &response)
+{
+    LOG_DEBUG("request failed, retrying in "<<_retryInterval);
+
+    if(_retryInterval)
+    {
+        boost::this_thread::sleep(boost::posix_time::milliseconds(_retryInterval));
+    }
+    
+    if(_connection->connect(_uri.c_str()))
+    {
+        if(_connection->request(request, response))
+        {
+            return true;
+        }
+        else
+        {
+            LOG_DEBUG("failed to send request");
+        }
+    }
+    else
+    {
+        LOG_DEBUG("failed to re-establish connection to : "<<_uri.c_str());
+    }
+    
+    return false;
+}
 
 bool Provider::request(Json::Value &request, Json::Value &response)
 {
     if(!_connection->request(request, response))
     {
-        size_t errors = 1;
 
-        while(errors <= _retryLimit)
+        if(_retryLimit)
         {
+            size_t errors = 1;
 
-            LOG_DEBUG("request failed, retrying in "<<_retryInterval);
-
-            if(_retryInterval)
+            while(errors <= _retryLimit)
             {
-                boost::this_thread::sleep(boost::posix_time::milliseconds(_retryInterval));
-            }
-            
-            if(_connection->connect(_uri.c_str()))
-            {
-                if(_connection->request(request, response))
+                if(retryRequest(request, response))
                 {
                     return true;
                 }
-                else
-                {
-                    LOG_DEBUG("failed to send request");
-                }
+                errors++;
             }
-            else
-            {
-                LOG_DEBUG("failed to re-establish connection to : "<<_uri.c_str());
-            }
-            
-            errors++;
+
+            LOG_DEBUG("request failed, too many errors : "<<errors);
+
+            return false;
         }
-
-        LOG_DEBUG("request failed, too many errors : "<<errors);
-
-        return false;
+        else
+        {
+            while(!retryRequest(request, response))
+            {}
+        }
     }
 
     return true;

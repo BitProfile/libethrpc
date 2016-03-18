@@ -66,6 +66,9 @@ class Provider
         };
 
     private:
+        bool retryRequest(Json::Value &request, Json::Value &response);
+
+    private:
         boost::shared_ptr<Connection> _connection;
         size_t _retryLimit;
         size_t _retryInterval;
