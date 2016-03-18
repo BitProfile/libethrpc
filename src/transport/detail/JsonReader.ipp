@@ -10,7 +10,15 @@ bool JsonReader::read(Socket &socket, Json::Value &message)
 {
     boost::asio::streambuf buffer;
     boost::system::error_code error;
+
     size_t size = boost::asio::read_until(socket, buffer, JsonMatcher(), error);
+
+    if(!size)
+    {
+        buffer.consume(1);
+        size = boost::asio::read_until(socket, buffer, JsonMatcher(), error);
+    }
+
     if(!size||error)
     {
         LOG_DEBUG("failed to read response: "<<error.message());
