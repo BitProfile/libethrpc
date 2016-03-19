@@ -47,22 +47,24 @@ Path Path::GethRootPath(Network net)
     std::string path;
 #if  defined(__APPLE_OS__)
     path += getenv("HOME");
-    path += "/Library/Ethereum/";
+    path += "/Library/Ethereum";
 #elif defined(__LINUX_OS__)
     path += getenv("HOME");
-    path += "/.ethereum/";
+    path += "/.ethereum";
 #elif defined(__WINDOWS_OS__)
     path += getenv("HOMEPATH");
-    path += "\\AppData\\Roaming\\Ethereum\\";
+    path += "\\AppData\\Roaming\\Ethereum";
 #else
     #warning "No OS detected"
     return Path(path);
 #endif
 
+#if __TESTNET_SPECIFIC_IPC__
     if(net==Test_Net)
     {
-        path+="testnet";
+        path+="/testnet";
     }
+#endif
 
     return Path(path);
 }
@@ -84,21 +86,24 @@ Path Path::EthRootPath(Network net)
     std::string path;
 #if  defined(__APPLE_OS__)
     path += getenv("HOME");
-    path += "/.ethereum/";
+    path += "/.ethereum";
 #elif defined(__LINUX_OS__)
     path += getenv("HOME");
-    path += "/.ethereum/";
+    path += "/.ethereum";
 #elif defined(__WINDOWS_OS__)
     path += getenv("HOMEPATH");
-    path += "\\AppData\\Roaming\\Ethereum\\";
+    path += "\\AppData\\Roaming\\Ethereum";
 #else
     #warning "No OS detected"
     return Path(path);
 #endif
+
+#if __TESTNET_SPECIFIC_IPC__
     if(net==Test_Net)
     {
         path+="testnet";
     }
+#endif
 
     return Path(path);
 }

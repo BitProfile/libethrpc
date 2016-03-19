@@ -18,16 +18,17 @@ class Path
         const std::string &toString() const;
         const char * toCString() const;
 
-        static Path GethRootPath();
-        static Path GethRootPath(Network net);
         static Path GethPath();
         static Path GethPath(Network net);
 
-        static Path EthRootPath();
-        static Path EthRootPath(Network net);
-
         static Path EthPath();
         static Path EthPath(Network net);
+
+    private:
+        static Path GethRootPath();
+        static Path GethRootPath(Network net);
+        static Path EthRootPath();
+        static Path EthRootPath(Network net);
 
     protected:
         std::string _path;
