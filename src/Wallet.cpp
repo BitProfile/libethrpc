@@ -46,8 +46,14 @@ BigInt Wallet::getPendingBalance(const std::string &account)
 
 bool Wallet::unlockAccount(const char *address, const char *password, time_t time)
 {
-    Json::Value result = _provider.request("personal_unlockAccount", Arguments(address, password, (size_t)time));
-    return result.asBool();
+    try
+    {
+        Json::Value result = _provider.request("personal_unlockAccount", Arguments(address, password, (size_t)time));
+        return result.asBool();
+    }
+    catch(...)
+    {}
+    return false;
 }
 
 bool Wallet::unlockAccount(const std::string &address, const std::string &password, time_t time)
