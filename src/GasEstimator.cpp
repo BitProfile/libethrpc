@@ -57,7 +57,7 @@ BigInt GasEstimator::getPrice()
 
 BigInt GasEstimator::estimate(const Json::Value &params)
 {
-    Json::Value result = _provider.request("eth_estimate", params);
+    Json::Value result = _provider.request("eth_estimateGas", params);
     return unhex<BigInt>(result.asCString());
 }
 
