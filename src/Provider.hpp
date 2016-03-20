@@ -27,26 +27,23 @@ class Provider
 
         void setRetryLimit(size_t );
         void setRetryInterval(size_t);
-        
-        Json::Value request(Json::Value &);
-        bool request(Json::Value &, Json::Value &);
+
         bool isEmpty() const;
         bool isConnected() const;
-        
-       bool request(const char *, const Arguments &, Json::Value &);
-       Json::Value request(const char *, const Arguments &);
 
-       bool request(const char *, Json::Value &);
-       Json::Value request(const char *);
+        Json::Value request(const char *, const Arguments &);
+        Json::Value request(const char *);
 
-       bool request(const char *, const Json::Value &, Json::Value &);
+    private:
+        Json::Value request(Json::Value &);
+        bool retryRequest(Json::Value &request, Json::Value &response, std::string &errMsg);
 
     private:
         class Connection
         {
             public:
             
-              virtual bool request(Json::Value &, Json::Value &) = 0;
+              virtual bool request(Json::Value &, Json::Value &, std::string &) = 0;
               virtual bool isConnected() const = 0;
               virtual bool connect(const char *) = 0;
         };
@@ -57,7 +54,7 @@ class Provider
             public:
                 ConnectionAdapter();
                 ConnectionAdapter(const char *uri);
-                bool request(Json::Value &, Json::Value &);
+                bool request(Json::Value &, Json::Value &, std::string &);
                 bool isConnected() const;
                 bool connect(const char *);
 
@@ -65,8 +62,6 @@ class Provider
                 Transport _transport;
         };
 
-    private:
-        bool retryRequest(Json::Value &request, Json::Value &response);
 
     private:
         boost::shared_ptr<Connection> _connection;

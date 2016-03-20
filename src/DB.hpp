@@ -17,8 +17,6 @@ class DB
         bool putString(const std::string &dbName, const std::string &key, const std::string &value);
 
         std::string getString(const char *dbName, const char *key);
-        bool getString(const char *dbName, const char *key, std::string &value);
-        bool getString(const std::string &dbName, const std::string &key, std::string &value);
 
     private:
         Provider &_provider;

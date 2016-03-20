@@ -63,6 +63,13 @@ Json::Value GenericTransport<Socket, Connector>::request(Json::Value &msg)
 template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value &response)
 {
+   std::string err;
+    return request(msg, response, err);
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value &response,std::string &err)
+{
     boost::mutex::scoped_lock lock(_mutex);
 
     unsigned id = (unsigned)time(NULL);
@@ -87,6 +94,7 @@ bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value 
 
     if(response.isMember("error"))
     {
+        err = response["error"].asString();
         LOG_DEBUG("got rpc error "<<response["error"].asString());
         return false;
     }
@@ -95,14 +103,36 @@ bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value 
 
     return true;
 }
-
 template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::request(const char *method, const Arguments &args, Json::Value &result)
+{
+   std::string err;
+    return request(method, args, result, err);
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(const char *method, Json::Value &result)
+{
+   std::string err;
+    return request(method, result, err);
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(const char *method, const Arguments &args, Json::Value &result,std::string &e)
 {
    Json::Value message;
    RequestEncoder encoder;
    encoder.encode(method, args,  message);
-   return request(message, result);
+   return request(message, result, e);
+}
+
+template<class Socket, class Connector>
+bool GenericTransport<Socket, Connector>::request(const char *method, Json::Value &result,std::string &e)
+{
+   Json::Value message;
+   RequestEncoder encoder;
+   encoder.encode(method,  message);
+   return request(message, result, e);
 }
 
 template<class Socket, class Connector>
@@ -116,14 +146,7 @@ Json::Value GenericTransport<Socket, Connector>::request(const char *method, con
     return result;
 }
 
-template<class Socket, class Connector>
-bool GenericTransport<Socket, Connector>::request(const char *method, Json::Value &result)
-{
-   Json::Value message;
-   RequestEncoder encoder;
-   encoder.encode(method,  message);
-   return request(message, result);
-}
+
 
 template<class Socket, class Connector>
 Json::Value GenericTransport<Socket, Connector>::request(const char *method)

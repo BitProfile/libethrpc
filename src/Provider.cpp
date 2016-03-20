@@ -71,38 +71,24 @@ bool Provider::connect(const char *uri)
     }
 }
 
-Json::Value Provider::request(Json::Value &request)
-{
-    Json::Value result;
-    if(!_connection->request(request, result))
-    {
-        throw std::runtime_error("request failed");
-    }
-    return result;
-}
-
-
-bool Provider::request(const char *method, const Arguments &args, Json::Value &result)
-{
-    Json::Value message;
-    RequestEncoder encoder;
-    encoder.encode(method, args, message);
-    return request(message, result);
-}
-
 
 
 Json::Value Provider::request(const char *method, const Arguments &args)
 {
-    Json::Value result;
-    if(!request(method, args, result))
-    {
-        throw std::runtime_error("rpc request failed");
-    }
-    return result;
+    Json::Value message;
+    RequestEncoder encoder;
+    encoder.encode(method, args, message);
+    return request(message);
 }
 
-bool Provider::retryRequest(Json::Value &request, Json::Value &response)
+Json::Value Provider::request(const char *method)
+{
+    RequestEncoder encoder;
+    Json::Value message = encoder.encode(method);
+    return request(message);
+}
+
+bool Provider::retryRequest(Json::Value &request, Json::Value &response, std::string &errMsg)
 {
     LOG_DEBUG("request failed, retrying in "<<_retryInterval);
 
@@ -113,7 +99,7 @@ bool Provider::retryRequest(Json::Value &request, Json::Value &response)
     
     if(_connection->connect(_uri.c_str()))
     {
-        if(_connection->request(request, response))
+        if(_connection->request(request, response, errMsg))
         {
             return true;
         }
@@ -130,9 +116,12 @@ bool Provider::retryRequest(Json::Value &request, Json::Value &response)
     return false;
 }
 
-bool Provider::request(Json::Value &request, Json::Value &response)
+Json::Value Provider::request(Json::Value &request)
 {
-    if(!_connection->request(request, response))
+    Json::Value response;
+    std::string errMsg;
+
+    if(!_connection->request(request, response, errMsg))
     {
 
         if(_retryLimit)
@@ -141,50 +130,27 @@ bool Provider::request(Json::Value &request, Json::Value &response)
 
             while(errors <= _retryLimit)
             {
-                if(retryRequest(request, response))
+                if(retryRequest(request, response, errMsg))
                 {
-                    return true;
+                    return response;
                 }
                 errors++;
             }
 
             LOG_DEBUG("request failed, too many errors : "<<errors);
-
-            return false;
+            throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
         }
         else
         {
-            while(!retryRequest(request, response))
+            while(!retryRequest(request, response, errMsg))
             {}
         }
     }
 
-    return true;
+    return response;
 }
 
-bool Provider::request(const char *method, Json::Value &response)
-{
-    RequestEncoder encoder;
-    Json::Value request = encoder.encode(method);
-    return _connection->request(request, response);
-}
 
-bool Provider::request(const char *method, const Json::Value &params, Json::Value &result)
-{
-    RequestEncoder encoder;
-    Json::Value request = encoder.encode(method, params);
-    return _connection->request(request, result);
-}
-
-Json::Value Provider::request(const char *method)
-{
-    Json::Value result;
-    if(!request(method, result))
-    {
-        throw std::runtime_error("failed to send request");
-    }
-    return result;
-}
 
 bool Provider::isEmpty() const
 {
@@ -207,9 +173,9 @@ Provider::ConnectionAdapter<Transport>::ConnectionAdapter()
 
 
 template<class Transport>
-bool Provider::ConnectionAdapter<Transport>::request(Json::Value &request, Json::Value &response)
+bool Provider::ConnectionAdapter<Transport>::request(Json::Value &request, Json::Value &response, std::string &errMsg)
 {
-    return _transport.request(request, response);
+    return _transport.request(request, response, errMsg);
 }
 
 template<class Transport>

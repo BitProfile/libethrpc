@@ -21,15 +21,17 @@ class GenericTransport
         GenericTransport(const char *);
 
         Json::Value request(Json::Value &);
+
         bool request(Json::Value &, Json::Value &);
-
         bool request(const char *, const Arguments &, Json::Value &);
-
-        Json::Value request(const char *, const Arguments &);
-
         bool request(const char *, Json::Value &);
-        Json::Value request(const char *);
 
+        bool request(Json::Value &, Json::Value &, std::string &);
+        bool request(const char *, const Arguments &, Json::Value &, std::string &);
+        bool request(const char *, Json::Value &, std::string &);
+
+        Json::Value request(const char *);
+        Json::Value request(const char *, const Arguments &);
         Json::Value request(const char *, const Json::Value &);
 
 

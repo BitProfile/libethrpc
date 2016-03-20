@@ -57,14 +57,8 @@ void FilterBuilder::reset()
 
 Filter FilterBuilder::build()
 {
-    Json::Value result;
-
-    if(!_provider.request("eth_newFilter", _request, result))
-    {
-        throw std::runtime_error("failed to set filter");
-    }
-
-     return Filter(_provider, unhex<uint32_t>(result.asCString()));
+    Json::Value result = _provider.request("eth_newFilter", _request);
+    return Filter(_provider, unhex<uint32_t>(result.asCString()));
 }
 
 
