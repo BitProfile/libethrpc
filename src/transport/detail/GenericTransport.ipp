@@ -94,8 +94,16 @@ bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value 
 
     if(response.isMember("error"))
     {
-        err = response["error"].asString();
-        LOG_DEBUG("got rpc error "<<response["error"].asString());
+        Json::Value errorVal = response["error"];
+        if(errorVal.isMember("message"))
+        {
+            err = errorVal["message"].asString();
+        }
+        else
+        {
+            err = errorVal.asString();
+        }
+
         return false;
     }
 
