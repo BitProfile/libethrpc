@@ -1,3 +1,6 @@
 [submodule "cmake/modules"]
 	path = cmake/modules
 	url = https://github.com/BitProfile/cmake-modules.git
+[submodule "abi"]
+	path = abi
+	url = git@github.com:BitProfile/libabi.git
