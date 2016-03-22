@@ -3,4 +3,4 @@
 	url = https://github.com/BitProfile/cmake-modules.git
 [submodule "abi"]
 	path = abi
-	url = git@github.com:BitProfile/libabi.git
+	url = https://github.com/BitProfile/libabi.git
