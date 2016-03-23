@@ -30,6 +30,18 @@ Contract ContractFactory::deploy(const std::string &from, const std::string &cod
 }
 
 
+Contract ContractFactory::deploy(const std::string &code)
+{
+    return deploy(getDefaultAddress(), code);
+}
+
+
+Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args)
+{
+    return deploy(getDefaultAddress(), code, args);
+}
+
+
 std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code)
 {
     GasEstimator estimator(_provider);
@@ -38,11 +50,17 @@ std::string ContractFactory::sendTransaction(const std::string &from, const std:
     request["data"] = code;
 
     Json::Value estimation = _provider.request("eth_estimateGas", request);
-    request["gas"] = estimation.asString();
+    request["gas"] = "0x3D0900";
     Json::Value tx = _provider.request("eth_sendTransaction", request);
 
     return tx.asString();
 }
 
+
+std::string ContractFactory::getDefaultAddress()
+{
+    Wallet wallet(_provider);
+    return wallet.getCoinBase();
+}
 
 }}

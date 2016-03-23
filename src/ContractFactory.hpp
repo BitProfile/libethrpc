@@ -4,6 +4,7 @@
 
 #include "Provider.hpp"
 #include "Contract.hpp"
+#include "Wallet.hpp"
 
 #include "detail/ContractAddressWatcher.hpp"
 
@@ -27,8 +28,18 @@ class ContractFactory
         Contract deploy(const std::string &from, const std::string &code);
         Contract deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &);
 
+        template<class CallBack>
+        void deploy(const std::string &code, const CallBack &);
+
+        template<class CallBack>
+        void deploy(const std::string &code, const Ethereum::ABI::Arguments &, const CallBack &);
+
+        Contract deploy(const std::string &code);
+        Contract deploy(const std::string &code, const Ethereum::ABI::Arguments &);
+
     private:
         std::string sendTransaction(const std::string &from, const std::string &code);
+        std::string getDefaultAddress();
 
     private:
         Provider &_provider;

@@ -14,4 +14,19 @@ void ContractFactory::deploy(const std::string &from, const std::string &code, c
 }
 
 
+
+template<class CallBack>
+void ContractFactory::deploy(const std::string &code, const CallBack &callback)
+{
+    deploy(getDefaultAddress(), code, callback);
+}
+
+
+template<class CallBack>
+void ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args, const CallBack &callback)
+{
+    deploy(getDefaultAddress(), code, args, callback);
+}
+
+
 }}
