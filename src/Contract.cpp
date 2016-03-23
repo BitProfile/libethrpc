@@ -29,6 +29,18 @@ std::string ContractInvoker::execute(const std::string &from, const std::string 
     return result.asString();
 }
 
+std::string ContractInvoker::execute(const std::string &to, const std::string &code, const BigInt &gas)
+{
+    return execute(getDefaultAddress(), to, code, gas);
+}
+
+
+std::string ContractInvoker::execute(const std::string &from, const std::string &to, const std::string &code, const BigInt &gas)
+{
+    Json::Value result = _provider.request("eth_sendTransaction", TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, 0));
+    return result.asString();
+}
+
 
 std::string ContractInvoker::call(const std::string &to, const std::string &code)
 {

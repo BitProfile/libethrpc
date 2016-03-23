@@ -23,6 +23,9 @@ class ContractInvoker
         std::string execute(const std::string &, const std::string &);
         std::string execute(const std::string &, const std::string &, const std::string &);
 
+        std::string execute(const std::string &, const std::string &, const BigInt &gas);
+        std::string execute(const std::string &, const std::string &, const std::string &, const BigInt &gas);
+
     private:
         std::string getDefaultAddress();
 
