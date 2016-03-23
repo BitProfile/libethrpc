@@ -10,6 +10,10 @@ Contract::Contract(Provider &provider, const std::string &address) :
 {}
 
 
+ContractInvoker::ContractInvoker(Provider &provider) : 
+    _provider(provider)
+{}
+
 
 std::string ContractInvoker::execute(const std::string &to, const std::string &code)
 {

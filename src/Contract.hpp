@@ -31,9 +31,6 @@ class ContractInvoker
 };
 
 
-#define ContractArguments Ethereum::ABI::ARGUMENTS
-
-
 typedef Ethereum::ABI::Result ContractResult;
 
 
