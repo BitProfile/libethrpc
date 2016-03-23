@@ -4,6 +4,10 @@
 namespace Ethereum{namespace Connector{
 
 
+ContractAddressWatcher::ContractAddressWatcher(Provider &provider) :
+    _provider(provider)
+{}
+
 
 Contract ContractAddressWatcher::watch(const std::string &txid)
 {
@@ -32,7 +36,7 @@ Contract ContractAddressWatcher::watch(Provider &provider, const std::string &tx
                 throw std::runtime_error("timeout");
             }
 
-            boost::this_thread::sleep(boost::posix_time::milliseconds(15000));
+            boost::this_thread::sleep(boost::posix_time::milliseconds(5000));
 
         }
         catch(...)
@@ -40,7 +44,7 @@ Contract ContractAddressWatcher::watch(Provider &provider, const std::string &tx
             errors++;
         }
     }
-    while(errors >= 99);
+    while(errors < 100);
 
     throw std::runtime_error("too many errors");
 
