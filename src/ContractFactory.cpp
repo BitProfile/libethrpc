@@ -42,6 +42,31 @@ Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::A
 }
 
 
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const BigInt &gas)
+{
+    std::string tx = sendTransaction(from, code, gas);
+    return _watcher.watch(tx);
+}
+
+
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas)
+{
+    return deploy(from, code+args.toHex(), gas);
+}
+
+
+Contract ContractFactory::deploy(const std::string &code, const BigInt &gas)
+{
+    return deploy(getDefaultAddress(), code, gas);
+}
+
+
+Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas)
+{
+    return deploy(getDefaultAddress(), code, args, gas);
+}
+
+
 std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code)
 {
     GasEstimator estimator(_provider);
@@ -50,7 +75,19 @@ std::string ContractFactory::sendTransaction(const std::string &from, const std:
     request["data"] = code;
 
     Json::Value estimation = _provider.request("eth_estimateGas", request);
-    request["gas"] = "0x3D0900";
+    request["gas"] = estimation;
+    Json::Value tx = _provider.request("eth_sendTransaction", request);
+
+    return tx.asString();
+}
+
+std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code, const BigInt &gas)
+{
+    GasEstimator estimator(_provider);
+    Json::Value request;
+    request["from"] = from;
+    request["data"] = code;
+    request["gas"] = hex(gas);
     Json::Value tx = _provider.request("eth_sendTransaction", request);
 
     return tx.asString();
