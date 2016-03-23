@@ -138,13 +138,8 @@ Json::Value Provider::request(Json::Value &request)
             }
 
             LOG_DEBUG("request failed, too many errors : "<<errors);
-            throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
         }
-        else
-        {
-            while(!retryRequest(request, response, errMsg))
-            {}
-        }
+        throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
     }
 
     return response;
