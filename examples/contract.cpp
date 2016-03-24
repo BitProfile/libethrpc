@@ -26,8 +26,8 @@ int main(int argc, const char **argv)
     std::string coinbase = wallet.getCoinBase();
     wallet.unlockAccount(coinbase, argv[1], 5000);
 
-    Contract contract = factory.deploy(coinbase, fooCode, CONTRACT_AGUMENTS("foo", "bar"));
-    ContractResult result = contract.call("get(string)", CONTRACT_AGUMENTS("foo"));
+    Contract contract = factory.deploy(coinbase, fooCode, CONTRACT_ARGUMENTS("foo", "bar"));
+    ContractResult result = contract.call("get(string)", CONTRACT_ARGUMENTS("foo"));
 
     std::cout<<"result : "<<result.toString()<<std::endl;
 
