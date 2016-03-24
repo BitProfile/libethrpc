@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "abi/Reflection.hpp"
+#include "abi/Contract.hpp"
 #include "Provider.hpp"
 #include "GasEstimator.hpp"
 
@@ -18,32 +18,39 @@ class ContractInvoker
 {
     public:
         ContractInvoker(Provider &);
+
         std::string call(const std::string &, const std::string &);
-        std::string call(const std::string &, const std::string &, const std::string &);
         std::string execute(const std::string &, const std::string &);
+
+        std::string call(const std::string &, const std::string &, const std::string &);
         std::string execute(const std::string &, const std::string &, const std::string &);
 
-        std::string execute(const std::string &, const std::string &, const BigInt &gas);
-        std::string execute(const std::string &, const std::string &, const std::string &, const BigInt &gas);
+        void setSenderAddress(const std::string &);
 
     private:
         std::string getDefaultAddress();
 
     private:
         Provider &_provider;
+        std::string _sender;
 };
 
 
 typedef Ethereum::ABI::Result ContractResult;
+typedef Ethereum::ABI::Arguments ContractArguments;
 
 
-class Contract : public Ethereum::ABI::Reflection<ContractInvoker>
+class Contract : public Ethereum::ABI::Contract<ContractInvoker>
 {
     public:
-        typedef Ethereum::ABI::Reflection<ContractInvoker> Base;
+        typedef Ethereum::ABI::Contract<ContractInvoker> Base;
 
     public:
         Contract(Provider &, const std::string &address);
+        void setSenderAddress(const std::string &address);
+
+        using Base::call;
+        using Base::execute;
 
 };
 
