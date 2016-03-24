@@ -2,6 +2,8 @@
 
 #include <boost/function.hpp>
 
+#include "abi/ContractConstructor.hpp"
+
 #include "Provider.hpp"
 #include "Contract.hpp"
 #include "Wallet.hpp"
