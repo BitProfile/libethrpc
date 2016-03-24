@@ -10,15 +10,21 @@ Contract::Contract(Provider &provider, const std::string &address) :
 {}
 
 
+void Contract::setSenderAddress(const std::string &sender)
+{
+    getInvoker().setSenderAddress(sender);
+}
+
 ContractInvoker::ContractInvoker(Provider &provider) : 
     _provider(provider)
 {}
 
 
-std::string ContractInvoker::execute(const std::string &to, const std::string &code)
+void ContractInvoker::setSenderAddress(const std::string &sender)
 {
-    return execute(getDefaultAddress(), to, code);
+    _sender = sender;
 }
+
 
 
 std::string ContractInvoker::execute(const std::string &from, const std::string &to, const std::string &code)
@@ -29,22 +35,16 @@ std::string ContractInvoker::execute(const std::string &from, const std::string 
     return result.asString();
 }
 
-std::string ContractInvoker::execute(const std::string &to, const std::string &code, const BigInt &gas)
+std::string ContractInvoker::execute(const std::string &to, const std::string &code)
 {
-    return execute(getDefaultAddress(), to, code, gas);
+    return execute(_sender.size()?_sender:getDefaultAddress(), to, code);
 }
 
-
-std::string ContractInvoker::execute(const std::string &from, const std::string &to, const std::string &code, const BigInt &gas)
-{
-    Json::Value result = _provider.request("eth_sendTransaction", TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, 0));
-    return result.asString();
-}
 
 
 std::string ContractInvoker::call(const std::string &to, const std::string &code)
 {
-    return call(getDefaultAddress(), to, code);
+    return call(_sender.size()?_sender:getDefaultAddress(), to, code);
 }
 
 
