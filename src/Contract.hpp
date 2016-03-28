@@ -19,10 +19,10 @@ class ContractInvoker
     public:
         ContractInvoker(Provider &);
 
-        std::string call(const std::string &, const std::string &);
+        std::string call(const std::string &, const std::string &) const;
         std::string execute(const std::string &, const std::string &);
 
-        std::string call(const std::string &, const std::string &, const std::string &);
+        std::string call(const std::string &, const std::string &, const std::string &) const;
         std::string execute(const std::string &, const std::string &, const std::string &);
 
         void setSenderAddress(const std::string &);

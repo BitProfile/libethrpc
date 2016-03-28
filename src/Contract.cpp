@@ -74,13 +74,13 @@ std::string ContractInvoker::execute(const std::string &to, const std::string &c
 
 
 
-std::string ContractInvoker::call(const std::string &to, const std::string &code)
+std::string ContractInvoker::call(const std::string &to, const std::string &code) const
 {
     return call(_sender.size()?_sender:getDefaultAddress(), to, code);
 }
 
 
-std::string ContractInvoker::call(const std::string &from, const std::string &to, const std::string &code)
+std::string ContractInvoker::call(const std::string &from, const std::string &to, const std::string &code) const
 {
     Json::Value result = _provider.request("eth_call", TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), 0));
     return result.asString();
