@@ -28,8 +28,10 @@ class ContractInvoker
         void setSenderAddress(const std::string &);
         std::string getSenderAddress() const;
 
+        void setGasPrice(const BigInt &price);
         void setGasLimit(const BigInt &gas);
         const BigInt & getGasLimit() const;
+        const BigInt & getGasPrice() const;
 
     private:
         std::string getDefaultAddress() const;
@@ -38,6 +40,7 @@ class ContractInvoker
         Provider &_provider;
         std::string _sender;
         BigInt _gas;
+        BigInt _price;
 };
 
 
@@ -55,8 +58,10 @@ class Contract : public Ethereum::ABI::Contract<ContractInvoker>
         void setSenderAddress(const std::string &address);
         std::string getSenderAddress() const;
 
+        void setGasPrice(const BigInt &);
         void setGasLimit(const BigInt &);
         const BigInt & getGasLimit() const;
+        const BigInt & getGasPrice() const;
 
         using Base::call;
         using Base::execute;

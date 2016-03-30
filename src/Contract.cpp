@@ -30,6 +30,17 @@ const BigInt & Contract::getGasLimit() const
     return getInvoker().getGasLimit();
 }
 
+void Contract::setGasPrice(const BigInt &gas)
+{
+    getInvoker().setGasPrice(gas);
+}
+
+const BigInt & Contract::getGasPrice() const
+{
+    return getInvoker().getGasPrice();
+}
+
+
 ContractInvoker::ContractInvoker(Provider &provider) : 
     _provider(provider)
 {}
@@ -41,9 +52,20 @@ void ContractInvoker::setGasLimit(const BigInt &gas)
 }
 
 
+void ContractInvoker::setGasPrice(const BigInt &price)
+{
+    _price = price;
+}
+
+
 const BigInt & ContractInvoker::getGasLimit() const
 {
     return _gas;
+}
+
+const BigInt & ContractInvoker::getGasPrice() const
+{
+    return _price;
 }
 
 void ContractInvoker::setSenderAddress(const std::string &sender)
@@ -63,7 +85,8 @@ std::string ContractInvoker::execute(const std::string &from, const std::string 
 {
     GasEstimator estimator(_provider);
     BigInt gas = (_gas>0) ? _gas : estimator.estimate(from, to, BigInt(0), code);
-    Json::Value result = _provider.request("eth_sendTransaction", TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, 0));
+    Json::Value request = (_price>0) ? TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, _price, 0) : TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, 0);
+    Json::Value result = _provider.request("eth_sendTransaction", request);
     return result.asString();
 }
 
