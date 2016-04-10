@@ -8,7 +8,7 @@ else()
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-cmake_minimum_required(VERSION 3.2)
+#cmake_minimum_required(VERSION 3.2)
 
 set (Eth_Connector_VERSION_MAJOR 1)
 set (Eth_Connector_VERSION_MINOR 0)
