@@ -68,6 +68,7 @@ class Provider
         size_t _retryLimit;
         size_t _retryInterval;
         std::string _uri;
+        bool _hasError;
 };
 
 

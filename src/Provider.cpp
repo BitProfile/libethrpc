@@ -6,7 +6,8 @@ namespace Ethereum{namespace Connector{
 
 Provider::Provider(const char *uri, size_t retryLimit, size_t retryInterval): 
     _retryLimit(retryLimit),
-    _retryInterval(retryInterval)
+    _retryInterval(retryInterval),
+    _hasError(false)
 {
     if(!connect(uri))
     {
@@ -16,7 +17,8 @@ Provider::Provider(const char *uri, size_t retryLimit, size_t retryInterval):
 
 Provider::Provider(const Path &path, size_t retryLimit, size_t retryInterval): 
     _retryLimit(retryLimit),
-    _retryInterval(retryInterval)
+    _retryInterval(retryInterval),
+    _hasError(false)
 {
     if(!connect(path.toCString()))
     {
@@ -27,7 +29,8 @@ Provider::Provider(const Path &path, size_t retryLimit, size_t retryInterval):
 
 Provider::Provider(size_t retryLimit, size_t retryInterval) : 
     _retryLimit(retryLimit),
-    _retryInterval(retryInterval)
+    _retryInterval(retryInterval),
+    _hasError(false)
 {}
 
 void Provider::setRetryInterval(size_t retryInterval)
@@ -116,8 +119,20 @@ bool Provider::retryRequest(Json::Value &request, Json::Value &response, std::st
     return false;
 }
 
+
 Json::Value Provider::request(Json::Value &request)
 {
+    if(_hasError)
+    {
+        //reset connection
+        if(!_connection->connect(_uri.c_str()))
+        {
+            LOG_DEBUG("failed to re-establish connection to : "<<_uri.c_str());
+            throw std::runtime_error("failed to re-establish connection");
+        }
+        _hasError = false;
+    }
+
     Json::Value response;
     std::string errMsg;
 
@@ -139,6 +154,7 @@ Json::Value Provider::request(Json::Value &request)
 
             LOG_DEBUG("request failed, too many errors : "<<errors);
         }
+        _hasError = true;
         throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
     }
 
