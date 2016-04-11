@@ -12,6 +12,7 @@ bool NamedPipeConnector::connect(NamedPipeSocket &socket, const char *path)
     {
         return false;
     }
+    if(socket.is_open()) socket.close();
     socket.assign(pipe);
     return true;
 }
