@@ -24,6 +24,10 @@ class Provider
         bool connect();
         bool connect(Network);
         bool connect(const char *uri);
+        bool connectIPC(const char *path);
+        bool connectIPC(const Path &);
+
+        void close();
 
         void setRetryLimit(size_t );
         void setRetryInterval(size_t);

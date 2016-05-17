@@ -59,19 +59,26 @@ Path Path::GethRootPath(Network net)
     return Path(path);
 #endif
 
-#if __TESTNET_SPECIFIC_IPC__
     if(net==Test_Net)
     {
-        path+="/testnet";
-    }
+#ifdef __WINDOWS_OS__
+        path += "\\testnet";
+#else
+        path += "/testnet";
 #endif
+    }
 
     return Path(path);
 }
 
+
 Path Path::GethPath(Network net)
 {
 #if defined(__WINDOWS_OS__)
+    if(net==Test_Net)
+    {
+        return Path("ipc:\\\\.\\pipe\\testnet\\geth.ipc");
+    }
     return Path("ipc:\\\\.\\pipe\\geth.ipc");
 #else
     Path path = Path::GethRootPath(net);
@@ -80,6 +87,7 @@ Path Path::GethPath(Network net)
     return path;
 #endif
 }
+
 
 Path Path::EthRootPath(Network net)
 {
@@ -98,12 +106,15 @@ Path Path::EthRootPath(Network net)
     return Path(path);
 #endif
 
-#if __TESTNET_SPECIFIC_IPC__
+
     if(net==Test_Net)
     {
-        path+="testnet";
-    }
+#ifdef __WINDOWS_OS__
+        path += "\\testnet";
+#else
+        path += "/testnet";
 #endif
+    }
 
     return Path(path);
 }
@@ -111,6 +122,10 @@ Path Path::EthRootPath(Network net)
 Path Path::EthPath(Network net)
 {
 #if defined(__WINDOWS_OS__)
+    if(net==Test_Net)
+    {
+        return Path("ipc:\\\\.\\pipe\\testnet\\eth.ipc");
+    }
     return Path("ipc:\\\\.\\pipe\\eth.ipc");
 #else
     Path path = EthRootPath(net);
