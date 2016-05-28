@@ -54,7 +54,9 @@ const BigInt & Contract::getGasPrice() const
 
 
 ContractInvoker::ContractInvoker(Provider &provider) : 
-    _provider(provider)
+    _provider(provider),
+    _hasGas(false),
+    _hasGasPrice(false)
 {}
 
 
@@ -145,6 +147,7 @@ Json::Value ContractInvoker::makeParams(const std::string &from, const std::stri
     Json::Value request;
     request["from"] = from;
     request["to"] = to;
+    request["code"] = code;
     if(_hasGas)
     {
         request["gas"] = hex(_gas);
