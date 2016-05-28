@@ -10,7 +10,7 @@ to install
 ```
    make install
 ```
-Requires Boost libraries and JspnCpp
+Requires Boost libraries and JsonCpp
 
 
 ##Usage
