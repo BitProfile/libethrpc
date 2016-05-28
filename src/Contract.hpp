@@ -37,6 +37,7 @@ class ContractInvoker
 
     private:
         std::string getDefaultAddress() const;
+        Json::Value makeParams(const std::string &from, const std::string &to, const std::string &code) const;
 
     private:
         Provider &_provider;

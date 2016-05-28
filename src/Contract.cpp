@@ -108,11 +108,10 @@ std::string ContractInvoker::getSenderAddress() const
 std::string ContractInvoker::execute(const std::string &from, const std::string &to, const std::string &code)
 {
     GasEstimator estimator(_provider);
-    BigInt gas = _hasGas ? _gas : estimator.estimate(from, to, BigInt(0), code);
-    Json::Value request = _hasGasPrice ? TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, _price, 0) : TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), gas, 0);
-    Json::Value result = _provider.request("eth_sendTransaction", request);
+    Json::Value result = _provider.request("eth_sendTransaction", Arguments(makeParams(from, to, code), "latest"));
     return result.asString();
 }
+
 
 std::string ContractInvoker::execute(const std::string &to, const std::string &code)
 {
@@ -129,7 +128,7 @@ std::string ContractInvoker::call(const std::string &to, const std::string &code
 
 std::string ContractInvoker::call(const std::string &from, const std::string &to, const std::string &code) const
 {
-    Json::Value result = _provider.request("eth_call", TransactionParamsFactory::makeParams(from.c_str(), to.c_str(), BigInt(0), code.c_str(), 0));
+    Json::Value result = _provider.request("eth_call", Arguments(makeParams(from, to, code), "latest"));
     return result.asString();
 }
 
@@ -138,6 +137,30 @@ std::string ContractInvoker::getDefaultAddress() const
 {
     Json::Value result = _provider.request("eth_coinbase");
     return result.asString();
+}
+
+
+Json::Value ContractInvoker::makeParams(const std::string &from, const std::string &to, const std::string &code) const
+{
+    Json::Value request;
+    request["from"] = from;
+    request["to"] = to;
+    if(_hasGas)
+    {
+        request["gas"] = hex(_gas);
+    }
+    else
+    {
+        GasEstimator estimator(_provider);
+        request["gas"] = hex(estimator.estimate(from, to, BigInt(0), code));
+    }
+
+    if(_hasGasPrice)
+    {
+        request["gasPrice"] = hex(_price);
+    }
+
+    return request;
 }
 
 
