@@ -10,6 +10,11 @@ Contract::Contract(Provider &provider, const std::string &address) :
 {}
 
 
+void Contract::unsetSenderAddress()
+{
+    getInvoker().unsetSenderAddress();
+}
+
 void Contract::setSenderAddress(const std::string &sender)
 {
     getInvoker().setSenderAddress(sender);
@@ -99,6 +104,11 @@ void ContractInvoker::setSenderAddress(const std::string &sender)
     _sender = sender;
 }
 
+void ContractInvoker::unsetSenderAddress()
+{
+    _sender = "";
+}
+
 
 std::string ContractInvoker::getSenderAddress() const
 {
@@ -124,7 +134,13 @@ std::string ContractInvoker::execute(const std::string &to, const std::string &c
 
 std::string ContractInvoker::call(const std::string &to, const std::string &code) const
 {
-    return call(_sender.size()?_sender:getDefaultAddress(), to, code);
+    if(_sender.size())
+    {
+        return call(_sender, to, code);
+    }
+
+    Json::Value result = _provider.request("eth_call", Arguments(makeParams(to, code), "latest"));
+    return result.asString();
 }
 
 
@@ -135,10 +151,19 @@ std::string ContractInvoker::call(const std::string &from, const std::string &to
 }
 
 
+
 std::string ContractInvoker::getDefaultAddress() const
 {
     Json::Value result = _provider.request("eth_coinbase");
     return result.asString();
+}
+
+Json::Value ContractInvoker::makeParams(const std::string &to, const std::string &code) const
+{
+    Json::Value request;
+    request["to"] = to;
+    request["data"] = code;
+    return request;
 }
 
 
@@ -147,7 +172,8 @@ Json::Value ContractInvoker::makeParams(const std::string &from, const std::stri
     Json::Value request;
     request["from"] = from;
     request["to"] = to;
-    request["code"] = code;
+    request["data"] = code;
+
     if(_hasGas)
     {
         request["gas"] = hex(_gas);

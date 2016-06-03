@@ -26,6 +26,7 @@ class ContractInvoker
         std::string execute(const std::string &, const std::string &, const std::string &);
 
         void setSenderAddress(const std::string &);
+        void unsetSenderAddress();
         std::string getSenderAddress() const;
 
         void setGasPrice(const BigInt &price);
@@ -38,6 +39,7 @@ class ContractInvoker
     private:
         std::string getDefaultAddress() const;
         Json::Value makeParams(const std::string &from, const std::string &to, const std::string &code) const;
+        Json::Value makeParams(const std::string &to, const std::string &code) const;
 
     private:
         Provider &_provider;
@@ -61,6 +63,7 @@ class Contract : public Ethereum::ABI::Contract<ContractInvoker>
     public:
         Contract(Provider &, const std::string &address);
         void setSenderAddress(const std::string &address);
+        void unsetSenderAddress();
         std::string getSenderAddress() const;
 
         void setGasPrice(const BigInt &);
