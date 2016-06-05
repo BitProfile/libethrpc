@@ -33,6 +33,21 @@ class Wallet
         bool unlockAccount(const char *address, const char *password, time_t time=1);
         bool unlockAccount(const std::string &, const std::string &, time_t time=1);
 
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, size_t nonce=0);
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const BigInt &gas, const BigInt &gasPrice, size_t nonce=0);
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const BigInt &gas, size_t nonce=0);
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, size_t nonce=0);
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, const BigInt &gas, const BigInt &gasPrice, size_t nonce=0);
+
+        std::string signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, const BigInt &gas, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const BigInt &gas, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const BigInt &gas, const BigInt &gasPrice, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gas, size_t nonce=0);
+        std::string signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gas,  const BigInt &gasPrice, size_t nonce=0);
+
+
         std::string sendTransaction(const char *from, const char *to, const BigInt &amount, size_t nonce=0);
         std::string sendTransaction(const char *from, const char *to, const BigInt &amount, const BigInt &gas, const BigInt &gasPrice, size_t nonce=0);
         std::string sendTransaction(const char *from, const char *to, const BigInt &amount, const BigInt &gas, size_t nonce=0);
@@ -55,7 +70,7 @@ class Wallet
         std::string sign(const std::string &account, const std::string &data);
 
     private:
-        std::string sendTransactionRequest(const char *type, const Json::Value &);
+        std::string sendTransactionRequest(const char *type, const Arguments &);
 
 
     private:

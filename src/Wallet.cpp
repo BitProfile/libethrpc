@@ -60,7 +60,72 @@ bool Wallet::unlockAccount(const std::string &address, const std::string &passwo
 {
     return unlockAccount(address.c_str(), password.c_str(), time);
 }
+////
 
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, nonce), password));
+}
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const BigInt &gas, const BigInt &gasPrice, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, gas, gasPrice, nonce), password));
+}
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const BigInt &gas, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, gas, nonce), password));
+}
+
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, data, nonce), password));
+}
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, const BigInt &gas, const BigInt &gasPrice, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, data, gas, gasPrice, nonce), password));
+}
+
+std::string Wallet::signAndSendTransaction(const char *from, const char *password, const char *to, const BigInt &amount, const char *data, const BigInt &gas, size_t nonce)
+{
+    return sendTransactionRequest("personal_signAndSendTransaction", Arguments(TransactionParamsFactory::makeParams(from, to, amount, data, gas, nonce), password));
+}
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, nonce);
+}
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const BigInt &gas,  const BigInt &gasPrice, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, gas, gasPrice, nonce);
+}
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const BigInt &gas, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, gas, nonce);
+}
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, data.c_str());
+}
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gas,  const BigInt &gasPrice, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, data.c_str(), gas, gasPrice, nonce);
+}
+
+
+std::string Wallet::signAndSendTransaction(const std::string &from, const std::string &password, const std::string &to, const BigInt &amount, const std::string &data, const BigInt &gas, size_t nonce)
+{
+    return signAndSendTransaction(from.c_str(), password.c_str(), to.c_str(), amount, data.c_str(), gas, nonce);
+}
+
+/////
 
 std::string Wallet::sendTransaction(const char *from, const char *to, const BigInt &amount, size_t nonce)
 {
@@ -149,13 +214,12 @@ std::string Wallet::sign(const std::string &account, const std::string &data)
     return sign(account.c_str(), data.c_str());
 }
 
-inline std::string Wallet::sendTransactionRequest(const char *type, const Json::Value &params)
+
+inline std::string Wallet::sendTransactionRequest(const char *type, const Arguments &params)
 {
     Json::Value result = _provider.request(type, params);
     return result.asString();
 }
-
-
 
 
 }}

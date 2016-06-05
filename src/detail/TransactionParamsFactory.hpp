@@ -15,6 +15,7 @@ class TransactionParamsFactory
         static inline Json::Value makeParams(const char *from, const char *to, const BigInt &amount, const char *data, size_t nonce);
         static inline Json::Value makeParams(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gas, size_t nonce);
         static inline Json::Value makeParams(const char *from, const char *to, const BigInt &amount, const char *data, const BigInt &gas, const BigInt &gasPrice, size_t nonce);
+
 };
 
 
