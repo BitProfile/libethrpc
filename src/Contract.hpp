@@ -42,11 +42,15 @@ class Contract
         std::string execute(const char *, const std::string &password);
         std::string execute(const char *, const ContractArguments &, const std::string &password);
 
+        std::string execute(const char *);
+        std::string execute(const char *, const ContractArguments &);
+
     private:
         std::string getDefaultAddress() const;
         Json::Value makeParams(const std::string &from, const std::string &code) const;
         Json::Value makeParams(const std::string &code) const;
-        std::string executeCode(const std::string &code, const std::string &password);
+        std::string executeCode(const std::string &code);
+        std::string signAndExecute(const std::string &code, const std::string &password);
         ContractResult executeCall(const std::string &code) const;
 
     private:

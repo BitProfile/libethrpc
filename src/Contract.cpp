@@ -67,11 +67,11 @@ std::string Contract::getSenderAddress() const
 
 std::string Contract::execute(const char *method, const std::string &password)
 {
-    return executeCode(Ethereum::ABI::Method::Encode(method), password);
+    return signAndExecute(Ethereum::ABI::Method::Encode(method), password);
 }
 
 
-std::string Contract::executeCode(const std::string &code, const std::string &password)
+std::string Contract::signAndExecute(const std::string &code, const std::string &password)
 {
     Json::Value result = _provider.request("personal_signAndSendTransaction", Arguments(makeParams(getSenderAddress(), code), password));
     return result.asString();
@@ -80,9 +80,27 @@ std::string Contract::executeCode(const std::string &code, const std::string &pa
 
 std::string Contract::execute(const char *method, const ContractArguments &args, const std::string &password)
 {
-    return executeCode(Ethereum::ABI::Method::Encode(method, args), password);
+    return signAndExecute(Ethereum::ABI::Method::Encode(method, args), password);
 }
 
+
+std::string Contract::execute(const char *method)
+{
+    return executeCode(Ethereum::ABI::Method::Encode(method));
+}
+
+
+std::string Contract::executeCode(const std::string &code)
+{
+    Json::Value result = _provider.request("eth_sendTransaction", makeParams(getSenderAddress(), code));
+    return result.asString();
+}
+
+
+std::string Contract::execute(const char *method, const ContractArguments &args)
+{
+    return executeCode(Ethereum::ABI::Method::Encode(method, args));
+}
 
 ContractResult Contract::call(const char *method) const
 {
