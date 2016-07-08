@@ -67,21 +67,31 @@ std::string Contract::getSenderAddress() const
 
 std::string Contract::execute(const char *method, const std::string &password)
 {
-    return signAndExecute(Ethereum::ABI::Method::Encode(method), password);
+    return signAndExecute(Ethereum::ABI::Method::Encode(method), getSenderAddress(), password);
 }
-
-
-std::string Contract::signAndExecute(const std::string &code, const std::string &password)
-{
-    Json::Value result = _provider.request("personal_signAndSendTransaction", Arguments(makeParams(getSenderAddress(), code), password));
-    return result.asString();
-}
-
 
 std::string Contract::execute(const char *method, const ContractArguments &args, const std::string &password)
 {
-    return signAndExecute(Ethereum::ABI::Method::Encode(method, args), password);
+    return signAndExecute(Ethereum::ABI::Method::Encode(method, args), getSenderAddress(), password);
 }
+
+
+std::string Contract::execute(const char *method, const Auth &auth)
+{
+    return signAndExecute(Ethereum::ABI::Method::Encode(method), auth.getSenderAddress(), auth.getPassword());
+}
+
+std::string Contract::execute(const char *method, const ContractArguments &args, const Auth &auth)
+{
+    return signAndExecute(Ethereum::ABI::Method::Encode(method, args), auth.getSenderAddress(), auth.getPassword());
+}
+
+std::string Contract::signAndExecute(const std::string &code, const std::string &sender, const std::string &password)
+{
+    Json::Value result = _provider.request("personal_signAndSendTransaction", Arguments(makeParams(sender, code), password));
+    return result.asString();
+}
+
 
 
 std::string Contract::execute(const char *method)
@@ -161,6 +171,22 @@ Json::Value Contract::makeParams(const std::string &from, const std::string &cod
     return request;
 }
 
+
+Contract::Auth::Auth(const std::string &sender, const std::string &password) :
+    _sender(sender),
+    _password(password)
+{}
+
+
+const std::string & Contract::Auth::getSenderAddress() const
+{
+    return _sender;
+}
+
+const std::string & Contract::Auth::getPassword() const
+{
+    return _password;
+}
 
 
 }}

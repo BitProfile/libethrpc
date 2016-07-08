@@ -22,6 +22,9 @@ class Contract
 {
 
     public:
+        class Auth;
+
+    public:
         Contract(Provider &, const std::string &address);
 
         void setSenderAddress(const std::string &address);
@@ -42,6 +45,9 @@ class Contract
         std::string execute(const char *, const std::string &password);
         std::string execute(const char *, const ContractArguments &, const std::string &password);
 
+        std::string execute(const char *, const Auth &auth);
+        std::string execute(const char *, const ContractArguments &, const Auth &auth);
+
         std::string execute(const char *);
         std::string execute(const char *, const ContractArguments &);
 
@@ -50,7 +56,7 @@ class Contract
         Json::Value makeParams(const std::string &from, const std::string &code) const;
         Json::Value makeParams(const std::string &code) const;
         std::string executeCode(const std::string &code);
-        std::string signAndExecute(const std::string &code, const std::string &password);
+        std::string signAndExecute(const std::string &code, const std::string &address, const std::string &password);
         ContractResult executeCall(const std::string &code) const;
 
     private:
@@ -61,6 +67,20 @@ class Contract
         BigInt _price;
         bool _hasGas;
         bool _hasGasPrice;
+};
+
+
+
+class Contract::Auth
+{
+    public:
+        Auth(const std::string &sender, const std::string &password);
+        const std::string &getSenderAddress() const;
+        const std::string &getPassword() const;
+
+    private:
+        std::string _sender;
+        std::string _password;
 };
 
 
