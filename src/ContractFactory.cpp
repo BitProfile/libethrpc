@@ -17,57 +17,57 @@ Contract ContractFactory::at(const std::string &address)
 }
 
 
-Contract ContractFactory::deploy(const std::string &from, const std::string &code)
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const std::string &password)
 {
-    std::string tx = sendTransaction(from, code);
+    std::string tx = sendTransaction(from, code, password);
     return _watcher.watch(tx);
 }
 
 
-Contract ContractFactory::deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &args)
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &args, const std::string &password)
 {
-    return deploy(from, code+args.toHex());
+    return deploy(from, code+args.toHex(), password);
 }
 
 
-Contract ContractFactory::deploy(const std::string &code)
+Contract ContractFactory::deploy(const std::string &code, const std::string &password)
 {
-    return deploy(getDefaultAddress(), code);
+    return deploy(getDefaultAddress(), code, password);
 }
 
 
-Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args)
+Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args, const std::string &password)
 {
-    return deploy(getDefaultAddress(), code, args);
+    return deploy(getDefaultAddress(), code, args, password);
 }
 
 
-Contract ContractFactory::deploy(const std::string &from, const std::string &code, const BigInt &gas)
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const BigInt &gas, const std::string &password)
 {
-    std::string tx = sendTransaction(from, code, gas);
+    std::string tx = sendTransaction(from, code, gas, password);
     return _watcher.watch(tx);
 }
 
 
-Contract ContractFactory::deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas)
+Contract ContractFactory::deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas, const std::string &password)
 {
-    return deploy(from, code+args.toHex(), gas);
+    return deploy(from, code+args.toHex(), gas, password);
 }
 
 
-Contract ContractFactory::deploy(const std::string &code, const BigInt &gas)
+Contract ContractFactory::deploy(const std::string &code, const BigInt &gas, const std::string &password)
 {
-    return deploy(getDefaultAddress(), code, gas);
+    return deploy(getDefaultAddress(), code, gas, password);
 }
 
 
-Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas)
+Contract ContractFactory::deploy(const std::string &code, const Ethereum::ABI::Arguments &args, const BigInt &gas, const std::string &password)
 {
-    return deploy(getDefaultAddress(), code, args, gas);
+    return deploy(getDefaultAddress(), code, args, gas, password);
 }
 
 
-std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code)
+std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code, const std::string &password)
 {
     GasEstimator estimator(_provider);
     Json::Value request;
@@ -76,19 +76,19 @@ std::string ContractFactory::sendTransaction(const std::string &from, const std:
 
     Json::Value estimation = _provider.request("eth_estimateGas", request);
     request["gas"] = estimation;
-    Json::Value tx = _provider.request("eth_sendTransaction", request);
+    Json::Value tx = _provider.request("personal_signAndSendTransaction", Arguments(request, password));
 
     return tx.asString();
 }
 
-std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code, const BigInt &gas)
+std::string ContractFactory::sendTransaction(const std::string &from, const std::string &code, const BigInt &gas, const std::string &password)
 {
     GasEstimator estimator(_provider);
     Json::Value request;
     request["from"] = from;
     request["data"] = code;
     request["gas"] = hex(gas);
-    Json::Value tx = _provider.request("eth_sendTransaction", request);
+    Json::Value tx = _provider.request("personal_signAndSendTransaction", Arguments(request, password));
 
     return tx.asString();
 }

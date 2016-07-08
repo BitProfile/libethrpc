@@ -23,46 +23,46 @@ class ContractFactory
         Contract at(const std::string &);
 
         template<class CallBack>
-        void deploy(const std::string &from, const std::string &code, const CallBack &);
+        void deploy(const std::string &from, const std::string &code, const std::string &password, const CallBack &);
 
         template<class CallBack>
-        void deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const CallBack &);
+        void deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const std::string &password, const CallBack &);
 
-        Contract deploy(const std::string &from, const std::string &code);
-        Contract deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &);
-
-        template<class CallBack>
-        void deploy(const std::string &code, const CallBack &);
+        Contract deploy(const std::string &from, const std::string &code, const std::string &password);
+        Contract deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const std::string &password);
 
         template<class CallBack>
-        void deploy(const std::string &code, const Ethereum::ABI::Arguments &, const CallBack &);
+        void deploy(const std::string &code, const std::string &password, const CallBack &);
 
-        Contract deploy(const std::string &code);
-        Contract deploy(const std::string &code, const Ethereum::ABI::Arguments &);
+        template<class CallBack>
+        void deploy(const std::string &code, const Ethereum::ABI::Arguments &, const std::string &password, const CallBack &);
+
+        Contract deploy(const std::string &code, const std::string &password);
+        Contract deploy(const std::string &code, const Ethereum::ABI::Arguments &, const std::string &password);
 
 
         template<class CallBack>
-        void deploy(const std::string &from, const std::string &code, const BigInt &gas, const CallBack &);
+        void deploy(const std::string &from, const std::string &code, const BigInt &gas, const std::string &password, const CallBack &);
 
         template<class CallBack>
-        void deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const CallBack &);
+        void deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const std::string &password, const CallBack &);
 
-        Contract deploy(const std::string &from, const std::string &code, const BigInt &gas);
-        Contract deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas);
-
-        template<class CallBack>
-        void deploy(const std::string &code, const BigInt &gas, const CallBack &);
+        Contract deploy(const std::string &from, const std::string &code, const BigInt &gas, const std::string &password);
+        Contract deploy(const std::string &from, const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const std::string &password);
 
         template<class CallBack>
-        void deploy(const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const CallBack &);
+        void deploy(const std::string &code, const BigInt &gas, const std::string &password, const CallBack &);
 
-        Contract deploy(const std::string &code, const BigInt &gas);
-        Contract deploy(const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas);
+        template<class CallBack>
+        void deploy(const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const std::string &password, const CallBack &);
+
+        Contract deploy(const std::string &code, const BigInt &gas, const std::string &password);
+        Contract deploy(const std::string &code, const Ethereum::ABI::Arguments &, const BigInt &gas, const std::string &password);
 
 
     private:
-        std::string sendTransaction(const std::string &from, const std::string &code);
-        std::string sendTransaction(const std::string &from, const std::string &code, const BigInt &gas);
+        std::string sendTransaction(const std::string &from, const std::string &code, const std::string &password);
+        std::string sendTransaction(const std::string &from, const std::string &code, const BigInt &gas, const std::string &password);
         std::string getDefaultAddress();
 
     private:
