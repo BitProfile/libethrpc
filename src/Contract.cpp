@@ -75,6 +75,10 @@ std::string Contract::execute(const char *method, const ContractArguments &args,
     return signAndExecute(Ethereum::ABI::Method::Encode(method, args), getSenderAddress(), password);
 }
 
+const std::string & Contract::getAddress() const
+{
+    return _address;
+}
 
 std::string Contract::execute(const char *method, const Auth &auth)
 {
