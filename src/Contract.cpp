@@ -148,7 +148,7 @@ Json::Value Contract::makeParams( const std::string &code) const
     Json::Value request;
     request["to"] = _address;
     request["data"] = code;
-    request["nonce"] = "0x1";
+//    request["nonce"] = "0x1";
     return request;
 }
 
