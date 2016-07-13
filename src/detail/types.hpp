@@ -12,3 +12,10 @@ typedef unsigned __int64 uint64_t;
 #else
 #include <stdint.h>
 #endif
+
+
+#ifdef __APPLE_OS__
+  #define SIZE_T(x) uint64_t(x)
+#else
+  #define SIZE_T(x) size_t(x)
+#endif
