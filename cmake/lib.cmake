@@ -18,17 +18,21 @@ include_directories(${JSONCPP_INCLUDE_DIR})
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-include(CheckTypeSize) 
 
-check_type_size("int64_t" SIZEOF_INT64_T)
 
-if(NOT SIZEOF_INT64_T)
-    check_type_size("__int64_t" SIZEOF_INT64_T BUILTIN_TYPES_ONLY)
-endif()
-
-if(SIZEOF_INT64_T EQUAL 8)
+if(APPLE)
     add_definitions(-D__HAS_INT64__)
+else()
+    include(CheckTypeSize) 
+    check_type_size("int64_t" SIZEOF_INT64_T)
+    if(NOT SIZEOF_INT64_T)
+        check_type_size("__int64_t" SIZEOF_INT64_T BUILTIN_TYPES_ONLY)
+    endif()
+    if(SIZEOF_INT64_T EQUAL 8)
+        add_definitions(-D__HAS_INT64__)
+    endif()
 endif()
+
 
 CopyHeaders()
 
