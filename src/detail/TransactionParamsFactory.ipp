@@ -7,10 +7,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["from"] = from;
     request["to"] = to;
     request["value"] = hex(amount);
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
@@ -22,10 +19,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["value"] = hex(amount);
     request["gasPrice"] = hex(gasPrice);
     request["gas"] = hex(gas);
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
@@ -36,10 +30,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["to"] = to;
     request["value"] = hex(amount);
     request["gas"] = hex(gas);
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
@@ -50,10 +41,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["to"] = to;
     request["value"] = hex(amount);
     request["data"] = data;
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
@@ -66,10 +54,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["data"] = data;
     request["gasPrice"] = hex(gasPrice);
     request["gas"] = hex(gas);
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
@@ -81,10 +66,7 @@ inline Json::Value TransactionParamsFactory::makeParams(const char *from, const 
     request["value"] = hex(amount);
     request["data"] = data;
     request["gas"] = hex(gas);
-    if(nonce)
-    {
-        request["nonce"] = hex(nonce);
-    }
+    request["nonce"] = hex(nonce ? nonce : 1);
     return request;
 }
 
