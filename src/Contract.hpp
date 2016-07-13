@@ -4,7 +4,6 @@
 
 #include <string>
 
-#include "abi/Contract.hpp"
 #include "Provider.hpp"
 #include "GasEstimator.hpp"
 
