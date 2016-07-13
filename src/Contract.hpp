@@ -4,6 +4,10 @@
 
 #include <string>
 
+#include "abi/Result.hpp"
+#include "abi/Arguments.hpp"
+#include "abi/Method.hpp"
+
 #include "Provider.hpp"
 #include "GasEstimator.hpp"
 
