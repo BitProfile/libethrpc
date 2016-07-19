@@ -29,7 +29,7 @@ void Iterator<Data, Decoder>::increment()
 template<class Data, class Decoder>
 void Iterator<Data, Decoder>::decrement()
 {
-    return --_it;
+    --_it;
 }
 
 
