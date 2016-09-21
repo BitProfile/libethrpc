@@ -1,13 +1,27 @@
 #pragma once 
 
+
+#include "Provider.hpp"
+#include "detail/hex.hpp"
+
+
 namespace Ethereum{namespace Connector{
 
 
-enum Network
+
+class Network
 {
-    Main_Net,
-    Test_Net
+
+    public:
+        Network(Provider &);
+
+        size_t getPeersCount();
+        size_t getProtocolVersion();
+
+    private:
+        Provider &_provider;
 };
+
 
 
 }}

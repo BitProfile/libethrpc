@@ -42,7 +42,7 @@ Path Path::EthPath()
     return EthPath(Main_Net);
 }
 
-Path Path::GethRootPath(Network net)
+Path Path::GethRootPath(NetworkParams net)
 {
     std::string path;
 #if  defined(__APPLE_OS__)
@@ -72,7 +72,7 @@ Path Path::GethRootPath(Network net)
 }
 
 
-Path Path::GethPath(Network net)
+Path Path::GethPath(NetworkParams net)
 {
 #if defined(__WINDOWS_OS__)
     if(net==Test_Net)
@@ -89,7 +89,7 @@ Path Path::GethPath(Network net)
 }
 
 
-Path Path::EthRootPath(Network net)
+Path Path::EthRootPath(NetworkParams net)
 {
     std::string path;
 #if  defined(__APPLE_OS__)
@@ -119,7 +119,7 @@ Path Path::EthRootPath(Network net)
     return Path(path);
 }
 
-Path Path::EthPath(Network net)
+Path Path::EthPath(NetworkParams net)
 {
 #if defined(__WINDOWS_OS__)
     if(net==Test_Net)

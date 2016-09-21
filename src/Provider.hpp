@@ -9,7 +9,7 @@
 
 #include "transport/detail/RequestEncoder.hpp"
 
-#include "Network.hpp"
+#include "NetworkParams.hpp"
 
 namespace Ethereum{namespace Connector{
 
@@ -22,7 +22,7 @@ class Provider
         Provider(size_t retryLimit=0, size_t retryInterval=1000);
 
         bool connect();
-        bool connect(Network);
+        bool connect(NetworkParams);
         bool connect(const char *uri);
         bool connectIPC(const char *path);
         bool connectIPC(const Path &);

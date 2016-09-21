@@ -55,7 +55,7 @@ bool Provider::connect()
 }
 
 
-bool Provider::connect(Network net)
+bool Provider::connect(NetworkParams net)
 {
     if(net==Test_Net)
     {

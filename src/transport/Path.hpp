@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdlib>
 
-#include "../Network.hpp"
+#include "../NetworkParams.hpp"
 
 namespace Ethereum{namespace Connector{
 
@@ -19,16 +19,16 @@ class Path
         const char * toCString() const;
 
         static Path GethPath();
-        static Path GethPath(Network net);
+        static Path GethPath(NetworkParams net);
 
         static Path EthPath();
-        static Path EthPath(Network net);
+        static Path EthPath(NetworkParams net);
 
     private:
         static Path GethRootPath();
-        static Path GethRootPath(Network net);
+        static Path GethRootPath(NetworkParams net);
         static Path EthRootPath();
-        static Path EthRootPath(Network net);
+        static Path EthRootPath(NetworkParams net);
 
     protected:
         std::string _path;
