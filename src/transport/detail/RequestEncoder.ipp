@@ -36,7 +36,7 @@ inline void RequestEncoder::encode(const char *method, const Json::Value &params
 {
     result["method"] = method;
     result["params"] = params;
-    result["jsonrpc"] = "2";
+    result["jsonrpc"] = "2.0";
 }
 
 
