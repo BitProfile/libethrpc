@@ -2,6 +2,8 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread/thread.hpp> 
+#include <boost/signals2.hpp>
+#include <boost/noncopyable.hpp>
 
 #include "transport/IpcTransport.hpp"
 #include "transport/Arguments.hpp"
@@ -14,7 +16,7 @@
 namespace Ethereum{namespace Connector{
 
 
-class Provider
+class Provider : public boost::noncopyable
 {
     public:
         Provider(const char *uri, size_t retryLimit=0, size_t retryInterval=1000);
@@ -37,6 +39,9 @@ class Provider
 
         Json::Value request(const char *, const Arguments &);
         Json::Value request(const char *);
+
+        template<class Callback>
+        void onError(const Callback &);
 
     private:
         Json::Value request(Json::Value &);
@@ -73,9 +78,12 @@ class Provider
         size_t _retryInterval;
         std::string _uri;
         bool _hasError;
+        boost::signals2::signal<void ()> _observers;
 };
 
 
 
 
 }}
+
+#include "Provider.ipp"

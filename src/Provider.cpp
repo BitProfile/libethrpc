@@ -204,7 +204,15 @@ Json::Value Provider::request(Json::Value &request)
             LOG_DEBUG("request failed, too many errors : "<<errors);
         }
         _hasError = true;
-        throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
+        if(_observers.empty())
+        {
+            throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
+        }
+        else
+        {
+            LOG_DEBUG("rpc error : "<<(errMsg.size()?errMsg:""));
+            _observers();
+        }
     }
 
     return response;
