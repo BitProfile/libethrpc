@@ -71,8 +71,8 @@ std::string ContractFactory::sendTransaction(const std::string &from, const std:
 {
     GasEstimator estimator(_provider);
     Json::Value request;
-    request["from"] = from;
-    request["data"] = code;
+    request["from"] = normalizeHex(from);
+    request["data"] = normalizeHex(code);
 
     Json::Value estimation = _provider.request("eth_estimateGas", request);
     request["gas"] = estimation;
@@ -85,8 +85,8 @@ std::string ContractFactory::sendTransaction(const std::string &from, const std:
 {
     GasEstimator estimator(_provider);
     Json::Value request;
-    request["from"] = from;
-    request["data"] = code;
+    request["from"] = normalizeHex(from);
+    request["data"] = normalizeHex(code);
     request["gas"] = hex(gas);
     Json::Value tx = _provider.request("personal_signAndSendTransaction", Arguments(request, password));
 

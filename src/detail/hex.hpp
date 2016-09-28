@@ -31,6 +31,8 @@ uint64_t unhex<uint64_t>(const char *);
 template<>
 BigInt unhex<BigInt>(const char *);
 
+template<class String>
+std::string normalizeHex(const String &hex);
 
 
 }}

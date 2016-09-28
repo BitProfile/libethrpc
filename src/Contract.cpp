@@ -146,9 +146,8 @@ std::string Contract::getDefaultAddress() const
 Json::Value Contract::makeParams( const std::string &code) const
 {
     Json::Value request;
-    request["to"] = _address;
-    request["data"] = code;
-//    request["nonce"] = "0x1";
+    request["to"] = normalizeHex(_address);
+    request["data"] = normalizeHex(code);
     return request;
 }
 
@@ -156,7 +155,7 @@ Json::Value Contract::makeParams( const std::string &code) const
 Json::Value Contract::makeParams(const std::string &from, const std::string &code) const
 {
     Json::Value request = makeParams(code);
-    request["from"] = from;
+    request["from"] = normalizeHex(from);
 
     if(_hasGas)
     {
