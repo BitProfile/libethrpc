@@ -9,6 +9,7 @@
 
 namespace Ethereum{namespace Connector{
 
+
 class FilterBuilder
 {
     public:
@@ -32,7 +33,7 @@ class FilterBuilder
 
     private:
         Json::Value _request;
-        Provider _provider;
+        Provider &_provider;
 };
 
 
