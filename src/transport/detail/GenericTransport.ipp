@@ -5,12 +5,14 @@ namespace Ethereum{namespace Connector{
 
 template<class Socket, class Connector>
 GenericTransport<Socket, Connector>::GenericTransport() : 
-    _socket(_service)
+    _socket(_service),
+    _isConnected(false)
 {}
 
 template<class Socket, class Connector>
 GenericTransport<Socket, Connector>::GenericTransport(const char *uri):
-    _socket(_service)
+    _socket(_service),
+    _isConnected(true)
 {
     if(!_connector.connect(_socket, uri))
     {
@@ -25,7 +27,8 @@ template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::connect(const char *uri)
 {
     boost::mutex::scoped_lock lock(_mutex);
-    return _connector.connect(_socket, uri);
+    _isConnected = _connector.connect(_socket, uri);
+    return _isConnected;
 }
 
 template<class Socket, class Connector>
@@ -178,7 +181,7 @@ Json::Value GenericTransport<Socket, Connector>::request(const char *method, con
 template<class Socket, class Connector>
 bool GenericTransport<Socket, Connector>::isConnected() const
 {
-    return _socket.is_open();
+    return _socket.is_open() && _isConnected;
 }
 
 

@@ -52,6 +52,7 @@ class GenericTransport
         JsonWriter _writer;
         Connector _connector;
         boost::mutex _mutex;
+        bool _isConnected;
 };
 
 
