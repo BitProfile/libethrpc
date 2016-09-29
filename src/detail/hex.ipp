@@ -47,7 +47,7 @@ std::string normalizeHex(const String &hex)
 {
     std::string result;
     result = hex;
-    if(result[0]!='0' && result[1]!='x' && result[1]!='X')
+    if(result[1]!='x' && result[1]!='X')
     {
         result.insert(0, "0x");
     }
