@@ -46,6 +46,7 @@ class Provider : public boost::noncopyable
     private:
         Json::Value request(Json::Value &);
         bool retryRequest(Json::Value &request, Json::Value &response, std::string &errMsg);
+        void handleError(const std::string &);
 
     private:
         class Connection

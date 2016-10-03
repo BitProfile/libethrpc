@@ -177,9 +177,13 @@ Json::Value Provider::request(Json::Value &request)
         if(!_connection->connect(_uri.c_str()))
         {
             LOG_DEBUG("failed to re-establish connection to : "<<_uri.c_str());
-            throw std::runtime_error("failed to re-establish connection");
+            handleError("failed to re-establish connection");
+            return Json::Value();
         }
-        _hasError = false;
+        else
+        {
+            _hasError = false;
+        }
     }
 
     Json::Value response;
@@ -203,21 +207,24 @@ Json::Value Provider::request(Json::Value &request)
 
             LOG_DEBUG("request failed, too many errors : "<<errors);
         }
-        _hasError = true;
-        if(_connection->isConnected() || _observers.empty())
-        {
-            throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
-        }
-        else
-        {
-            LOG_DEBUG("rpc error : "<<(errMsg.size()?errMsg:""));
-            _observers();
-        }
+        handleError(errMsg);
     }
 
     return response;
 }
 
+
+void Provider::handleError(const std::string &errMsg)
+{
+    _hasError = true;
+    if(!_connection->isConnected())
+    {
+        LOG_DEBUG("rpc error : "<<(errMsg.size()?errMsg:""));
+        _observers();
+    }
+
+    throw std::runtime_error(errMsg.size()?errMsg:"rpc request failed");
+}
 
 
 bool Provider::isEmpty() const
