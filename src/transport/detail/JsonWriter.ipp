@@ -8,16 +8,21 @@ namespace Ethereum{namespace Connector{
 template<class Socket>
 bool JsonWriter::write(Socket &socket, const Json::Value &json)
 {
-//    Json::FastWriter writer;
-//    std::string data = writer.write(json);
+
+#if __JSON_USE_STREAMBUILDER__
     std::stringstream stream;
     Json::StreamWriterBuilder builder;
     builder.settings_["indentation"] = "";
     Json::StreamWriter * writer(builder.newStreamWriter());
     writer->write(json, &stream);
     std::string data = stream.str();
-    size_t size = data.size();
     delete writer;
+#else
+    Json::FastWriter writer;
+    std::string data = writer.write(json);
+#endif
+
+    size_t size = data.size();
 
     boost::system::error_code  error;
     size_t sent = boost::asio::write(socket, boost::asio::buffer(data.c_str(), size), error);
