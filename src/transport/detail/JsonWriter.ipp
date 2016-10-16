@@ -9,7 +9,10 @@ template<class Socket>
 bool JsonWriter::write(Socket &socket, const Json::Value &json)
 {
 
-#if __JSON_USE_STREAMBUILDER__
+#if __JSON_USE_FASTWRITER__
+    Json::FastWriter writer;
+    std::string data = writer.write(json);
+#else
     std::stringstream stream;
     Json::StreamWriterBuilder builder;
     builder.settings_["indentation"] = "";
@@ -17,9 +20,6 @@ bool JsonWriter::write(Socket &socket, const Json::Value &json)
     writer->write(json, &stream);
     std::string data = stream.str();
     delete writer;
-#else
-    Json::FastWriter writer;
-    std::string data = writer.write(json);
 #endif
 
     size_t size = data.size();
