@@ -98,9 +98,16 @@ bool GenericTransport<Socket, Connector>::request(Json::Value &msg, Json::Value 
     if(response.isMember("error"))
     {
         Json::Value errorVal = response["error"];
-        if(errorVal.isMember("message"))
+        if(errorVal.isObject())
         {
-            err = errorVal["message"].asString();
+            if(errorVal.isMember("message"))
+            {
+                err = errorVal["message"].asString();
+            }
+            else
+            {
+                err = errorVal.toStyledString();
+            }
         }
         else
         {
