@@ -6,7 +6,7 @@ if(ETHCRYPTO_INCLUDE_DIRS)
 endif()
 
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/CopyHeaders.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/MakeIncludesLink.cmake)
 
 include_directories(${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${JSONCPP_INCLUDE_DIR})
@@ -29,7 +29,7 @@ else()
 endif()
 
 
-CopyHeaders()
+MakeIncludesLink()
 
 if(ABI_ENALED)
     include_directories(${CMAKE_CURRENT_BINARY_DIR}/abi/include)
