@@ -46,7 +46,7 @@ add_library(ethrpc STATIC ${SOURCES})
 
 if(ABI_ENALED)
     add_dependencies(ethrpc abi)
-    include_directories(${CRYPTOPP_INCLUDE_DIR})
+    include_directories(${ETHCRYPTO_INCLUDE_DIRS})
 
     if (WIN32 AND NOT MINGW)
 #        set_property (TARGET ethrpc APPEND PROPERTY STATIC_LIBRARY_FLAGS $<TARGET_OBJECTS:abi>)

@@ -20,7 +20,7 @@ foreach(EXAMPLE ${EXAMPLES})
         ${CMAKE_THREAD_LIBS_INIT}
     )
     if(ABI_ENALED)
-        target_link_libraries(${EXAMPLE_NAME} ${CRYPTOPP_LIBRARY})
+        target_link_libraries(${EXAMPLE_NAME} ${ETHCRYPTO_LIBRARIES})
     endif()
     if(WIN32)
         target_link_libraries(${EXAMPLE_NAME} ws2_32)
