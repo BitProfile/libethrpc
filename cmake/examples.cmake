@@ -1,9 +1,3 @@
-find_package(JsonCPP REQUIRED)
-find_package(Boost COMPONENTS system thread date_time chrono regex REQUIRED)
-
-set(CMAKE_THREAD_PREFER_PTHREAD ON)
-find_package(Threads REQUIRED)
-
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/examples)
 
 file(GLOB EXAMPLES 
